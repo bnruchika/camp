@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+
+{% block content %}
+  <h2>Sign up</h2>
+  <form method="post" class="form form-horizontal">
+    {% csrf_token %}
+     {% bootstrap_form form layout='inline'%}
+    <button type="submit" class="btn btn-primary">Sign up</button>
+  </form>
+{% endblock %}
