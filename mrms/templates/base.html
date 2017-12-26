@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Atom360">
-    <title>Atom360 HMS</title>
+    <title>Atom360 MRMS</title>
     {% include 'navbar.html' %}
   </head>
   {% load static %}
@@ -19,7 +19,6 @@
 
   {# Display django.contrib.messages as Bootstrap alerts #}
   {% bootstrap_messages %}
-  <link href="{% static "/css/bootstrap.min.css"%}" rel="stylesheet"> </link>
   <link href="{% static "/css/bootstrap_override.css"%}" rel="stylesheet"> </link>
   <link href="{% static "/css/bootstrap-datepicker.min.css"%}" rel="stylesheet"> </link>
   <link href="{% static "/css/jquery.seat-charts.css"%}" rel="stylesheet"> </link>
@@ -42,7 +41,7 @@
         orientation: "bottom",
     });
     $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',
+        format: 'yyyy-mm-dd',
         autoclose: true,
         orientation: "bottom",
     });

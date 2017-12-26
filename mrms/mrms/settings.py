@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'mrms',
-    'users',
+    'usermanagement',
 ]
 
 MIDDLEWARE = [
@@ -122,6 +122,22 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+# Bootstrap4 specific settings
+BOOTSTRAP4 = {
+    'css_url': '/static/css/bootstrap.min.css',
+    'theme_url': '/static/css/bootstrap-spacelab.min.css',
+    'include_jquery': True,
+    'javascript_url': '/static/js/bootstrap.min.js',
+    'jquery_url': '/static/js/jquery-3.2.1.min.js',
+
+}
 
 
-AUTH_USER_MODEL = 'users.User'
+
+
+
+AUTH_USER_MODEL = 'usermanagement.User'

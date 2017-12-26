@@ -1,0 +1,103 @@
+@media (min-width: 576px) {
+  .find-patient {
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+  }
+
+  .find-patient.is-responsive {
+    width: 50%;
+    height: 50%;
+    min-width: 200px;
+    max-width: 500px;
+    padding: 40px;
+  }
+}
+
+/* Radiology specific css */
+.front-indicator {
+	width: 96%;
+	margin: 5px 32px 15px 32px;
+	color: #17A2B8;
+	text-align: center;
+	padding: 3px;
+    border-color: #1197CD ;
+    border-width: 1px;
+    border-style: solid;
+}
+.wrapper {
+	width: 100%;
+	text-align: center;
+}
+.container {
+	margin: 0 auto;
+	width: 600px;
+	text-align: left;
+}
+div.seatCharts-cell {
+	color: #182C4E;
+	height: 35px;
+	width: 42px;
+	line-height: 25px;
+
+}
+div.seatCharts-seat {
+	color: #FFFFFF;
+	cursor: pointer;
+    font-size: 12px;
+}
+div.seatCharts-row {
+	height: 50px;
+}
+div.seatCharts-seat.available {
+	background-color: #ffffff;
+    color: black;
+    border-radius: 26%;
+    border-color: #1197CD ;
+    border-width: 1px;
+    border-style: solid;
+
+}
+div.seatCharts-seat.available.first-class {
+/* 	background: url(vip.png); */
+	background-color: #3a78c3;
+}
+div.seatCharts-seat.focused {
+	background-color: #76B474;
+}
+div.seatCharts-seat.selected {
+	background-color: #28A745;
+}
+div.seatCharts-seat.unavailable {
+	background-color: #eaeaea;
+    color: #ffffff;
+}
+div.seatCharts-container {
+	border-right: 1px dotted #adadad;
+	width: 100%;
+	padding: 20px;
+	float: left;
+}
+div.seatCharts-legend {
+	padding-left: 0px;
+	position: absolute;
+	bottom: 16px;
+}
+ul.seatCharts-legendList {
+	padding-left: 0px;
+}
+span.seatCharts-legendDescription {
+	margin-left: 5px;
+	line-height: 30px;
+}
+.checkout-button {
+	display: block;
+	margin: 10px 0;
+	font-size: 14px;
+}
+#selected-seats {
+	max-height: 90px;
+	overflow-y: scroll;
+	overflow-x: none;
+	width: 170px;
+}

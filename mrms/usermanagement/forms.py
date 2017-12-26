@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django import forms
 
+from usermanagement.models import User
+
 # If you don't do this you cannot use Bootstrap CSS
 
 
@@ -33,16 +35,15 @@ class SignUpForm(UserCreationForm):
     gender = forms.ChoiceField(
         label="Gender",
         choices=gender_choices,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'name': 'username'}))
+        widget=forms.Select,
+        )
+
     dob = forms.DateField(
         label="Date Of Birth",
         widget=forms.DateInput(
             format=('%d/%m/%Y'),
             attrs={
-                'class': 'form-control',
+                'class': 'form-control datepicker',
                 'name': 'username',
                 'placeholder': 'yyyy-mm-dd'}))
     full_name = forms.CharField(
@@ -57,4 +58,9 @@ class SignUpForm(UserCreationForm):
         if len(self.cleaned_data.get('username')) != 10:
             raise forms.ValidationError(
                 "Mobile Number cannot be less than 10 digits")
+        print(self.cleaned_data)
         return self.cleaned_data
+
+
+    class Meta(UserCreationForm.Meta):
+        model = User
