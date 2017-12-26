@@ -1,0 +1,274 @@
+{% include 'base.html'%}
+
+{% block content %}
+  {% if patient %}
+  <ul class="nav nav-tabs" id="Tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#patient-details" role="tab" aria-controls="patient-details" aria-selected="true">Patient-details</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" target="_blank" target="_blank" href="#tests" role="tab" aria-controls="tests" aria-selected="false">Patient History</a>
+  </li>
+<!--  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+  </li>-->
+  <li class="nav-item">
+    <a class="nav-link" id="radiology-tab" href="/radiology/schedule_patient_machine/{{username}}/" aria-controls="radiology" aria-selected="false">Radiology</a>
+  </li>
+</ul>
+
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="patient-details" role="tabpanel" aria-labelledby="home-tab">
+      <div class="row">
+        <div class="col-md-3 col-lg-3">
+            <div class="card border-primary">
+              <h3 class="card-header">{{patient.fullname}}</h3>
+              <div class="card-body">
+                <blockquote class="card-blockquote">
+                  <p>{{patient.gender|title}}</p>
+                  <p>{{patient.age}}</p>
+                </blockquote>
+
+              </div>
+            </div> <!-- Card -->
+
+          </br>
+            <div class="row-md-3 row-lg-3">
+                <div class="card border-primary">
+                  <h3 class="card-header">Clinical advice</h3>
+                  <div class="card-body">
+                    <textarea id="doctor_clinical_advice" class="form-control">{{event.event_doctor_clinical_advice.strip}}</textarea>
+                  </div>
+                </div>
+            </div>
+        </div> <!-- col -->
+        <div class="col-md-3 col-lg-3">
+          <div class="card border-primary">
+            <h3 class="card-header">Add Symptoms</h3>
+            <div class="card-body">
+              <textarea id="doctor_reported_symptoms" class="form-control">{{event.event_symptoms.strip}}</textarea>
+            </div>
+          </div> <!-- Card -->
+        </br>
+          <div class="row-md-3 row-lg-3">
+              <div class="card border-primary">
+                <h3 class="card-header">Allergies</h3>
+                <div class="card-body">
+                  <textarea id="patient_allergies" class="form-control">{{event.allergies.strip}}</textarea>
+                </div>
+
+              </div>
+
+          </div>
+
+
+
+        </div>
+        <div class="col-md-3 col-lg-6">
+          <div class="card border-primary">
+            <h3 class="card-header">Medicines</h3>
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" placeholder="Medicine Name" id="med_name">
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                      <input type="text" class="form-control" placeholder="Dosage" id="med_dosage">
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                      <input type="text" class="form-control" placeholder="Number of Days" id="days">
+                    </div>
+                  </div>
+                </div>
+
+
+                 <div class="col-sm-3">
+                   <div class="form">
+                     <div class="checkbox">
+                       <label>
+                         <input type="checkbox" value="morning" id="morning"> Morning
+                       </label>
+                     </div>
+                     <div class="checkbox">
+                       <label>
+                         <input type="checkbox" value="afternoon" id="afternoon"> Afternoon
+                       </label>
+                     </div>
+
+                     <div class="checkbox">
+                       <label>
+                         <input type="checkbox" value="night" id="night"> Night
+                       </label>
+                     </div>
+                   </div>
+                 </div>
+
+                 <div class="col-sm-3">
+                   <div class="form">
+                     <div class="checkbox">
+                       <label>
+                         <input type="radio" name="food" value="(A)"> After Food
+                       </label>
+                     </div>
+                     <div class="checkbox">
+                       <label>
+                         <input type="radio" name="food" value="(B)"> Before Food
+                       </label>
+                     </div>
+                     <div class="form">
+                       <div class="checkbox">
+                         <label>
+                           <button type="submit" class="btn btn-sm btn-primary" id="add_medicine">Add</button>
+                         </label>
+                       </div>
+                   </div>
+                 </div>
+
+
+               </div>
+                <table class="table" id="medicine_list">
+                  <thead>
+                    <tr>
+                      <th style="width:40%"> Medicine Name </th>
+                      <th style="width:10%"> Dosage </th>
+                      <th style="width:10%"> End Date </th>
+                      <th style="width:10%"> Consume </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for medicine_name, details in event.medicines.items %}
+                    <tr>
+                      <th>
+                          {{medicine_name}}
+                      </th>
+                      <th>
+                        {{details.dosage}}
+                      </th>
+                      <th>
+                          {{details.end_date}}
+                       </th>
+                       <th>
+                         {{details.cycle}}
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+          </div> <!-- Card -->
+        </div>
+      </div>
+      </div> <!-- row -->
+    </br>
+      <div class="col-md-3 col-lg-6">
+          <div class="card border-primary">
+            <h3 class="card-header">Doctor's note </h3>(not visible to patients)
+            <div class="card-body">
+              <textarea id="doctor_notes" class="form-control">{{event.event_doctor_notes.strip}}</textarea>
+            </div>
+
+          </div>
+
+      </div>
+      <button class="btn btn-priamry" id="save_patient_details">Save Details </button>
+
+    </div>
+
+
+
+    <div class="tab-pane fade " id="tests" role="tabpanel" aria-labelledby="profile-tab">
+    <!--  <div class="row">
+        <div class="col-md-3 col-lg-3" >
+          <div class="card border-primary">
+            <h3 class="card-header">Patient_history</h3>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" placeholder="Test Name">
+
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6">
+                <input type="text" class="form-control" placeholder="End Date" data-provide="datepicker">
+              </div>
+              <h4 class="card-header">Description</h4>
+                <div class="form-control">
+                <textarea name="what" row="5" placeholder="Doctors Medical Notes">
+
+                </textarea>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>-->
+        <div id="accordion" role="tablist">
+  <div class="card">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Collapsible Group Item #1
+        </a>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingTwo">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Collapsible Group Item #2
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingThree">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Collapsible Group Item #3
+        </a>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+</div>
+      </div>
+
+      <div class="tab-pane fade show" id="radiology" role="tabpanel" aria-labelledby="radiology-tab">
+
+      </div>
+
+
+    </div>
+</div>
+
+
+
+
+{% else %}
+  No Patient Details found. You should use the find patient to find the patient
+{% endif %}
+{% endblock %}
+
+{% block script %}
+  <script>
+  var event_id = {{event.event_id}}
+    var patient_id = "{{patient_id|escapejs}}"
+    var csrf_token = "{{csrf_token}}"
+  </script>
+  <script src="/static/js/patient_details.js"></script>
+{% endblock script %}

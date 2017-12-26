@@ -18,9 +18,16 @@ from django.contrib import admin
 
 from mrms.views import home
 
+from phr.views import find_patient, event_details
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'auth/', include('usermanagement.urls')),
     url(r'user/', include('usermanagement.urls')),
-    url(r'^$', home, name='home')
+    url(r'^$', home, name='home'),
+    url(r'^find_patient/$', find_patient, name="find_patient"),
+    url(r'^patient_details/(?P<username>\d+)/$', event_details, name="event_details"),
+    url(r'^patient_details/(?P<username>\d+)/(?P<event_id>\d+)/$', event_details, name="event_details"),
+
+
 ]

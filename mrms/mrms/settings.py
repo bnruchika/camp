@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'mrms',
     'usermanagement',
+    'phr'
 ]
 
 MIDDLEWARE = [

@@ -72,7 +72,7 @@ class User(AbstractUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-
+    fullname = models.CharField(max_length=400, default="Unknown")
     gender = models.CharField(
         max_length=10,
         choices=gender_choices,
