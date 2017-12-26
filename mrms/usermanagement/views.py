@@ -4,12 +4,16 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 
-from usermanagement.forms import SignUpForm, LoginForm
+from usermanagement.forms import SignUpForm, LoginForm, DoctorProfileForm
 from usermanagement.models import User
 
 # Create your views here.
+
+
 def register(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -24,6 +28,7 @@ def register(request):
     else:
         form = SignUpForm()
     return render(request, 'usermanagement/signup.html', {'form': form})
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -47,3 +52,31 @@ def login_view(request):
     else:
         form = LoginForm()
         return render(request, 'usermanagement/login.html', {'form': form})
+
+
+@login_required
+def profile(request):
+    if request.method == "POST":
+        user = User.objects.get(username=request.user.username)
+        form = DoctorProfileForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            user.doctor_activated = True
+            user.save()
+            return HttpResponseRedirect("/")
+        else:
+            return render(request,
+                          'usermanagement/doctor_profile.html',
+                          {'form': form})
+    else:
+        try:
+            doctor_profile = User.objects.get(username=request.user.username)
+            form = DoctorProfileForm(instance=doctor_profile)
+        except ObjectDoesNotExist:
+            form = DoctorProfileForm(request=request)
+        return render(request,
+                      'usermanagement/doctor_profile.html',
+                      {'form': form})
+
+
+# TODO: Need to make forgot password and delete account working

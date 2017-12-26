@@ -1,0 +1,9 @@
+[
+  {
+    "model": "usermanagement.StateMedicalCouncil",
+    "pk": 1,
+    "fields": {
+      "state_medical_council_name": "Some name"
+    }
+  }
+]

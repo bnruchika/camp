@@ -36,7 +36,7 @@ class SignUpForm(UserCreationForm):
         label="Gender",
         choices=gender_choices,
         widget=forms.Select,
-        )
+    )
 
     dob = forms.DateField(
         label="Date Of Birth",
@@ -61,6 +61,36 @@ class SignUpForm(UserCreationForm):
         print(self.cleaned_data)
         return self.cleaned_data
 
-
     class Meta(UserCreationForm.Meta):
         model = User
+
+
+class DoctorProfileForm(forms.ModelForm):
+    doctor_date_of_reg = forms.DateField(
+        label="Date of Registration",
+        widget=forms.DateInput(
+            format=('%d/%m/%Y'),
+            attrs={
+                'class': 'form-control datepicker',
+            }))
+
+    class Meta:
+        model = User
+        fields = [
+            "experience",
+            "doctor_available_time",
+            "doctor_registration_number",
+            "doctor_state_medical_council",
+            "doctor_date_of_reg",
+            "doctor_bio",
+            "doctor_specialization"
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super(DoctorProfileForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cd = self.cleaned_data
+        cd["is_doctor"] = True
+        cd["doctor_activated"] = True
+        return cd

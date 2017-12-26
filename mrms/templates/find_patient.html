@@ -1,0 +1,66 @@
+{%load static%}
+{% include 'base.html'%}
+
+{% block content %}
+
+{% if error %}
+  {{error}}
+{% endif %}
+<div class="find-patient is-responsive">
+     <div class="form-group">
+       Enter patient's UserID or Mobile Number.
+        <label class="sr-only" for="username">Username</label>
+        <div class="input-group">
+          <div class="input-group-addon">+91</div>
+          <input type="text" name="mobile_number" class="form-control" value="{{username}}" id="username" placeholder="Mobile number">
+        </div>
+    </div>
+    <div class="form-group form-control-md mx-sm-5">
+      <button id="find_patient" type="submit" class="btn btn-primary"> Find Patient </button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <table class="table table-dark" style="display:none;">
+        <tbody>
+         <tr>
+            <td id="patient_name"></td>
+            <td id="patient_age"></td>
+            <td id="patient_gender"></td>
+            <td><a id="patient_link">View Patient Details</a></td>
+         </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+  <script>
+    $("#find_patient").click(function(){
+      $.ajax({
+          url:"/find_patient/",
+          method: "POST",
+          data: {
+            "mobile_number": $("#username").val(),
+            "csrfmiddlewaretoken": "{{csrf_token}}"
+          },
+          success: function(data){
+            $(".table-dark").show();
+            $("#patient_gender").text(data.gender);
+            $("#patient_name").text(data.fullname);
+            $("#patient_age").text(data.age);
+            $("#patient_link").attr("href", "/patient_details/"+data.id+"/")
+          },
+          error: function(data){
+            $(".table-dark").hide();
+            alert("Patient not found")
+          }
+      })
+    })
+  </script>
+{% endblock %}
+{%block pagescss%}
+<link href="{% static "/css/atom360.css"%}"  rel="stylesheet"> </link>
+
+{% endblock %}

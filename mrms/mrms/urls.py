@@ -16,7 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from mrms.views import home
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'auth/', include('usermanagement.urls')),
+    url(r'user/', include('usermanagement.urls')),
+    url(r'^$', home, name='home')
 ]
