@@ -7,49 +7,8 @@ from mrms.models import DateTimeModel
 
 from usermanagement.models import User
 
-# Create your models here.
+from hms.models import Hospital, DeptartmentsInHospital
 
-
-class PatientSymptoms(models.Model):
-    patient_reported_symptoms = models.TextField(blank=True, null=True)
-    doctor_reported_symptoms = models.TextField(blank=False, null=False)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-
-
-class PatientMedicines(DateTimeModel):
-    cycle_choices = (
-        ("as_pain", "Whenever you have pain"),
-        ("101(A)", "Morning & Night after Food"),
-        ("101(B)", "Morning & Night before Food"),
-        ("111(B)", "3 times a day before Food"),
-        ("111(A)", "3 times a day after Food"),
-        ("001(A)", "Only night after food"),
-        ("001(B)", "Only night before food"),
-    )
-    medicine_name = models.CharField(max_length=200, blank=False, null=False)
-    start_date = models.DateField(auto_now_add=True)
-    end_date = models.DateField()
-    dosage = models.CharField(max_length=50, blank=False, null=False)
-    cycle = models.CharField(max_length=50, choices=cycle_choices)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.medicine_name
-
-
-class PatientInjection(DateTimeModel):
-    injection_name = models.CharField(max_length=200, blank=True, null=True)
-    injection_dose = models.CharField(max_length=50, blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-
-
-class PatientTests(DateTimeModel):
-    # test names should be loaded from a pre-defined set of templates
-    test_name = models.CharField(max_length=100, blank=False, null=False)
-    test_date = models.DateField()  # When to do the test
-    test_condition = models.TextField(blank=True, null=True)
-    test_results = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
 class PatientOperation(DateTimeModel):
@@ -82,6 +41,48 @@ class PatientAdmission(DateTimeModel):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
+class PatientInjection(DateTimeModel):
+    injection_name = models.CharField(max_length=200, blank=True, null=True)
+    injection_dose = models.CharField(max_length=50, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+
+class PatientSymptoms(models.Model):
+    patient_reported_symptoms = models.TextField(blank=True, null=True)
+    doctor_reported_symptoms = models.TextField(blank=False, null=False)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+
+class PatientMedicines(DateTimeModel):
+    cycle_choices = (
+        ("as_pain", "Whenever you have pain"),
+        ("101(A)", "Morning & Night after Food"),
+        ("101(B)", "Morning & Night before Food"),
+        ("111(B)", "3 times a day before Food"),
+        ("111(A)", "3 times a day after Food"),
+        ("001(A)", "Only night after food"),
+        ("001(B)", "Only night before food"),
+    )
+    medicine_name = models.CharField(max_length=200, blank=False, null=False)
+    start_date = models.DateField(auto_now_add=True)
+    end_date = models.DateField()
+    dosage = models.CharField(max_length=50, blank=False, null=False)
+    cycle = models.CharField(max_length=50, choices=cycle_choices)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.medicine_name
+
+
+class PatientTests(DateTimeModel):
+    # test names should be loaded from a pre-defined set of templates
+    test_name = models.CharField(max_length=100, blank=False, null=False)
+    test_date = models.DateField()  # When to do the test
+    test_condition = models.TextField(blank=True, null=True)
+    test_results = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+
 class PatientAllergies(DateTimeModel):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     allergy = models.CharField(
@@ -92,12 +93,12 @@ class PatientAllergies(DateTimeModel):
 
 
 class PatientEvents(DateTimeModel):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="patient_id")
     tenant_id = models.CharField(max_length=50, default="Atom360", blank=False,
                                  null=False)
-    hospital_id = models.CharField(max_length=50, blank=False, null=False)
-    dept_id = models.CharField(max_length=50, blank=False, null=False)
-    doctor_id = models.CharField(max_length=50, blank=False, null=False)
+    hospital_id = models.ForeignKey(Hospital, on_delete=models.PROTECT)
+    dept_id = models.ForeignKey(DeptartmentsInHospital, on_delete=models.PROTECT)
+    doctor_id = models.ForeignKey(User, on_delete=models.PROTECT,related_name="doctor_id")
     visit_date = models.DateField(auto_now=True)
     schedule_date = models.DateField(blank=False, null=False)
     symptoms = models.ForeignKey(PatientSymptoms, on_delete=models.PROTECT)

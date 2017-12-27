@@ -6,12 +6,12 @@
       }
   }
 
-  function update_data() {
+  function update_symptoms(symptom) {
       $.ajax({
           url: "/update_patient_symptoms/",
           type: "POST",
           data: {
-              "doctor_reported_symptoms": $("#doctor_reported_symptoms").val(),
+              "doctor_reported_symptoms": symptom,
               "csrfmiddlewaretoken": csrf_token,
               "patient_id": patient_id,
               "event_id": event_id
@@ -24,7 +24,9 @@
               alert("error")
           }
       })
+  }
 
+  function update_data() {
       $.ajax({
           url: "/update_patient_doctor_advice/",
           type: "POST",
@@ -102,7 +104,7 @@
 
   $('#doctor_reported_symptoms').keyup(function(e) {
       if (e.which == 13) {
-          $("#patient_symptoms").append("<li>" + this.value + "</li>")
+          update_symptoms(this.value)
       }
   });
   $("#save_patient_details").click(function() {

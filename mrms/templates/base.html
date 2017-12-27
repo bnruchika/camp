@@ -10,18 +10,18 @@
     {% include 'navbar.html' %}
 </head>
 {% load static %} {# Load the tag library #} {% load bootstrap4 %} {# Load CSS and JavaScript #} {% bootstrap_css %} {% bootstrap_javascript %} {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
-<link href="{% static " /css/bootstrap_override.css "%}" rel="stylesheet"> </link>
-<link href="{% static " /css/bootstrap-datepicker.min.css "%}" rel="stylesheet"> </link>
-<link href="{% static " /css/jquery.seat-charts.css "%}" rel="stylesheet"> </link>
-<link href="{% static " /css/atom360.css "%}" rel="stylesheet"> </link>
+<link href="{% static " /css/bootstrap_override.css "%}" rel="stylesheet">
+<link href="{% static " /css/bootstrap-datepicker.min.css "%}" rel="stylesheet">
+<link href="{% static " /css/jquery.seat-charts.css "%}" rel="stylesheet">
+<link href="{% static " /css/atom360.css "%}" rel="stylesheet">
 
 <body>
     <div class="container-fluid">
         {% block content %} {% endblock %}
     </div>
 </body>
-<script src="{% static " /js/bootstrap-datepicker.min.js "%}"></script>
-<script src="{% static " /js/jquery.seat-charts.min.js "%}"></script>
+<script src="{% static "/js/bootstrap-datepicker.min.js"%}"></script>
+<script src="{% static "/js/jquery.seat-charts.min.js"%}"></script>
 
 <script>
     $('.datepicker-today').datepicker({
