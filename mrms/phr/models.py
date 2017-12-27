@@ -13,7 +13,7 @@ from usermanagement.models import User
 class PatientSymptoms(models.Model):
     patient_reported_symptoms = models.TextField(blank=True, null=True)
     doctor_reported_symptoms = models.TextField(blank=False, null=False)
-    user = models.ForeignKey(User,on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
 class PatientMedicines(DateTimeModel):
@@ -31,7 +31,7 @@ class PatientMedicines(DateTimeModel):
     end_date = models.DateField()
     dosage = models.CharField(max_length=50, blank=False, null=False)
     cycle = models.CharField(max_length=50, choices=cycle_choices)
-    user = models.ForeignKey(User,on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.medicine_name
@@ -40,7 +40,7 @@ class PatientMedicines(DateTimeModel):
 class PatientInjection(DateTimeModel):
     injection_name = models.CharField(max_length=200, blank=True, null=True)
     injection_dose = models.CharField(max_length=50, blank=True, null=True)
-    user = models.ForeignKey(User,on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
 class PatientTests(DateTimeModel):
@@ -49,7 +49,7 @@ class PatientTests(DateTimeModel):
     test_date = models.DateField()  # When to do the test
     test_condition = models.TextField(blank=True, null=True)
     test_results = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(User,on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
 class PatientOperation(DateTimeModel):
@@ -64,7 +64,7 @@ class PatientOperation(DateTimeModel):
 
     # This can take a list with the help of ast to decouple it
     doctor_id = models.CharField(max_length=50, blank=False, null=False)
-    user = models.ForeignKey(User,on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
 class PatientAdmission(DateTimeModel):
@@ -73,13 +73,17 @@ class PatientAdmission(DateTimeModel):
     admission_date = models.DateTimeField(blank=False, null=False)
     discharge_date = models.DateTimeField(blank=True, null=True)
     discharge_note = models.TextField()
-    operation = models.ForeignKey(PatientOperation, blank=True, null=True,on_delete=models.PROTECT)
+    operation = models.ForeignKey(
+        PatientOperation,
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT)
     inpatient_observation = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(User,on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
 class PatientAllergies(DateTimeModel):
-    user = models.ForeignKey(User,on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     allergy = models.CharField(
         max_length=150,
         blank=False,
@@ -88,7 +92,7 @@ class PatientAllergies(DateTimeModel):
 
 
 class PatientEvents(DateTimeModel):
-    user = models.ForeignKey(User,on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     tenant_id = models.CharField(max_length=50, default="Atom360", blank=False,
                                  null=False)
     hospital_id = models.CharField(max_length=50, blank=False, null=False)
@@ -96,13 +100,17 @@ class PatientEvents(DateTimeModel):
     doctor_id = models.CharField(max_length=50, blank=False, null=False)
     visit_date = models.DateField(auto_now=True)
     schedule_date = models.DateField(blank=False, null=False)
-    symptoms = models.ForeignKey(PatientSymptoms,on_delete=models.PROTECT)
+    symptoms = models.ForeignKey(PatientSymptoms, on_delete=models.PROTECT)
     medicines = models.ManyToManyField(PatientMedicines)
     injection = models.ManyToManyField(PatientInjection)
     tests = models.ManyToManyField(PatientTests)
     clinical_advice = models.TextField(blank=True, null=True)
     doctor_notes = models.TextField(blank=True, null=True)
     admission_required = models.BooleanField(default=False)
-    admission_id = models.ForeignKey(PatientAdmission, blank=True, null=True,on_delete=models.PROTECT)
+    admission_id = models.ForeignKey(
+        PatientAdmission,
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT)
     next_vist_date = models.DateField(blank=True, null=True)
     is_open = models.BooleanField(default=False)

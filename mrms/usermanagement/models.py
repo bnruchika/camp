@@ -100,7 +100,8 @@ class User(AbstractUser):
         null=True,
         default=None,
         verbose_name="Date of Registration")
-    experience = models.IntegerField(verbose_name="Years of Experience",default=0)
+    experience = models.IntegerField(
+        verbose_name="Years of Experience", default=0)
     doctor_available_time = models.CharField(
         max_length=50,
         default="",
@@ -115,7 +116,7 @@ class User(AbstractUser):
         verbose_name="Fields of Specialization",
         max_length=200)
 
-    REQUIRED_FIELDS = ["dob","gender"]
+    REQUIRED_FIELDS = ["dob", "gender"]
 
     objects = UserManager()
 

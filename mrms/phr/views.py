@@ -23,9 +23,11 @@ def find_patient(request):
         patient = User.objects.get(username=username)
         # TODO : Handle other cases
         if patient:
-            return render(request, "find_patient.html",{'patient':patient})
+            return render(request, "find_patient.html", {'patient': patient})
         else:
-            return render(request, "find_patient.html",{'error':"Patient with this mobile number not found"})
+            return render(
+                request, "find_patient.html", {
+                    'error': "Patient with this mobile number not found"})
     else:
         return render(request, "find_patient.html")
 
@@ -52,7 +54,8 @@ def event_details(request, username, event_id=None):
             error = "Unknown event ID for the patient. Do not edit the url from the screen."
             raise Exception(error)
     else:
-        symptoms = PatientSymptoms.objects.create(doctor_reported_symptoms="",user=return_dict['patient'])
+        symptoms = PatientSymptoms.objects.create(
+            doctor_reported_symptoms="", user=return_dict['patient'])
         symptoms.save()
         event = PatientEvents.objects.create(
             user=return_dict['patient'],
