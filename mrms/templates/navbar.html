@@ -1,35 +1,35 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Atom360</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">Atom360</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarColor01">
-    <ul class="nav navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      </li>
-      {% if user.is_authenticated %}
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'find_patient'%}">Find Patient</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/hospital_depts_registration/">Admin</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href=" {% url 'profile' %} ">Profile</a>
-          <a class="dropdown-item" href="#">Change Password</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href=" {% url 'logout' %} ">Logout</a>
-        </div>
-      </li>
-      {% endif %}
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-    </ul>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{%url 'find_patient'%}">Find Patient</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/hospital_depts_registration/">Admin</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href=" {% url 'profile' %} ">Profile</a>
+                    <a class="dropdown-item" href="#">Change Password</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href=" {% url 'logout' %} ">Logout</a>
+                </div>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="#"></a>
+            </li>
+        </ul>
 
-  </div>
+    </div>
 </nav>

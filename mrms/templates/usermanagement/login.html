@@ -1,22 +1,12 @@
-{% extends 'base.html' %}
-{% load bootstrap4 %}
-
-{% block title %}Patient Login{% endblock %}
-
-{% block content %}
-  <h2>Login</h2>
-
-  {% if error %}
-    <div class="alert alert-danger"> {{error}} </div>
-  {% endif %}
-  <form method="post">
-    {% csrf_token %}
-     {% bootstrap_form form %}
-     {% buttons %}
-       <button type="submit" class="btn btn-primary">
+{% extends 'base.html' %} {% load bootstrap4 %} {% block title %}Patient Login{% endblock %} {% block content %}
+<h2>Login</h2> {% if error %}
+<div class="alert alert-danger"> {{error}} </div>
+{% endif %}
+<form method="post">
+    {% csrf_token %} {% bootstrap_form form %} {% buttons %}
+    <button type="submit" class="btn btn-primary">
          Submit
        </button>
-       <a href="/auth/register/" class="btn btn-primary"> Signup </a>
-     {% endbuttons %}
-  </form>
+    <a href="/auth/register/" class="btn btn-primary"> Signup </a> {% endbuttons %}
+</form>
 {% endblock %}

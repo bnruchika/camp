@@ -1,50 +1,39 @@
-{%load static%}
-{% include 'base.html'%}
-
-{% block content %}
-
-{% if error %}
-  {{error}}
-{% endif %}
+{%load static%} {% include 'base.html'%} {% block content %} {% if error %} {{error}} {% endif %}
 <form method="POST" action=".">
     <div class="find-patient is-responsive">
         {% csrf_token %}
-         <div class="form-group">
-           Enter patient's UserID or Mobile Number.
+        <div class="form-group">
+            Enter patient's UserID or Mobile Number.
             <label class="sr-only" for="username">Username</label>
             <div class="input-group">
-              <div class="input-group-addon">+91</div>
-              <input type="text" name="mobile_number" class="form-control" value="{{username}}" id="username" placeholder="Mobile number">
+                <div class="input-group-addon">+91</div>
+                <input type="text" name="mobile_number" class="form-control" value="{{username}}" id="username" placeholder="Mobile number">
             </div>
         </div>
         <div class="form-group form-control-md mx-sm-5">
-          <button id="find_patient" type="submit" class="btn btn-primary"> Find Patient </button>
-      </div>
+            <button id="find_patient" type="submit" class="btn btn-primary"> Find Patient </button>
+        </div>
 </form>
 
 {% if patient %}
 
-  <div class="row">
+<div class="row">
     <div class="col-md-12 col-lg-12">
-      <table class="table table-dark">
-        <tbody>
-         <tr>
-            <td id="patient_name">{{patient.first_name|default_if_none:"Patient Name Unknown"}}</td>
-            <td id="patient_age"></td>
-            <td id="patient_gender">{{patient.gender}}</td>
-            <td><a href="/patient_details/{{patient.username}}/">View Patient Details</a></td>
-         </tr>
-        </tbody>
-      </table>
+        <table class="table table-dark">
+            <tbody>
+                <tr>
+                    <td id="patient_name">{{patient.first_name|default_if_none:"Patient Name Unknown"}}</td>
+                    <td id="patient_age"></td>
+                    <td id="patient_gender">{{patient.gender}}</td>
+                    <td><a href="/patient_details/{{patient.username}}/">View Patient Details</a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-  </div>
+</div>
 </div>
 
-{% endif %}
-
-{% endblock %}
-
-{%block pagescss%}
-<link href="{% static "/css/atom360.css"%}"  rel="stylesheet"> </link>
+{% endif %} {% endblock %} {%block pagescss%}
+<link href="{% static " /css/atom360.css "%}" rel="stylesheet"> </link>
 
 {% endblock %}

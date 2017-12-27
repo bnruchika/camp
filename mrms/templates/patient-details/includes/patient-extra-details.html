@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-offset-1 col-lg-offset-1">
+        &nbsp;
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <div class="card border-primary">
+            <h3 class="card-header">Allergies</h3>
+            <div class="card-body">
+                <textarea id="patient_allergies" class="form-control">{{event.allergies.strip}}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        List of previous allergies:
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-lg-offset-1">
+        &nbsp;
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <div class="card border-primary">
+            <h3 class="card-header">Doctor's note </h3>(not visible to patients)
+            <div class="card-body">
+                <textarea id="doctor_notes" class="form-control">{{event.event_doctor_notes.strip}}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        Something here
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-lg-offset-1">
+        &nbsp;
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <div class="card border-primary">
+            <h3 class="card-header">Clinical advice</h3>
+            <div class="card-body">
+                <textarea id="doctor_clinical_advice" class="form-control">{{event.event_doctor_clinical_advice.strip}}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        Something here
+    </div>
+</div>
