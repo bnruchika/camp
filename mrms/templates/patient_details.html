@@ -40,7 +40,7 @@
 {% block script %}
     <script>
         var event_id = {{event.id}}
-        var patient_id = "{{patient_id|escapejs}}"
+        var patient_id = "{{event.username}}"
         var csrf_token = "{{csrf_token}}"
     </script>
     <script src="/static/js/patient_details.js"></script>

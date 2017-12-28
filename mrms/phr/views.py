@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import datetime
+import json
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -11,7 +12,7 @@ from django.views.decorators.http import require_http_methods
 from usermanagement.models import User
 from usermanagement.decorators import doctor_profile_validated
 
-from phr.models import PatientAllergies, PatientEvents, PatientSymptoms
+from phr.models import PatientAllergies, PatientEvents, PatientSymptoms, PatientMedicines
 from hms.models import Hospital, DepartmentsInHospital, Department
 # Create your views here.
 
@@ -92,6 +93,37 @@ def update_patient_symptoms(request):
         symptoms.save()
         return JsonResponse(
             {"symptoms": event.symptoms.doctor_reported_symptoms}, status=201)
+    else:
+        return JsonResponse(
+            {"error": "Event Not Created. Register Patient First ?"}, status=500)
+
+
+@require_http_methods(["POST"])
+@login_required
+@doctor_profile_validated
+def update_patient_medicines(request):
+    event_id = request.POST.get("event_id")
+    if event_id:
+        event = PatientEvents.objects.get(id=event_id)
+        medicine_name = request.POST.get("med_name")
+        dosage = request.POST.get("med_dosage")
+        days = request.POST.get("days")
+        cycle = request.POST.get("med_cycle")
+        end_date = datetime.datetime.now() + datetime.timedelta(days=int(days))
+        medicine = PatientMedicines.objects.create(
+            medicine_name=medicine_name,
+            dosage=dosage,
+            end_date=end_date,
+            cycle=cycle,
+            user=event.user)
+        medicine.save()
+
+        event.medicines.add(medicine)
+        response_dict = {
+            "event_id": event.id,
+        }
+        print(response_dict)
+        return JsonResponse({"success":"Added medicine successfully"}, status=201)
     else:
         return JsonResponse(
             {"error": "Event Not Created. Register Patient First ?"}, status=500)

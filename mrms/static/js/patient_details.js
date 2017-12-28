@@ -120,14 +120,15 @@
       var night = get_checkbox_status("night").toString()
       var food = $("input[name='food']:checked").val();
       var days = $("#days").val();
-
+      console.log(med_dosage, med_name, morning, afternoon, night, food, days)
+      var med_cycle = morning + "-" + afternoon + "-" + night + " " + food
       $.ajax({
-          url: "/update_patient_medicines/",
+          url: "/patient/update_medicines/",
           type: "POST",
           data: {
               "med_name": med_name,
               "med_dosage": med_dosage,
-              "med_cycle": morning + "-" + afternoon + "-" + night + " " + food,
+              "med_cycle": med_cycle,
               "days": days,
               "patient_id": patient_id,
               "event_id": event_id,
@@ -135,8 +136,7 @@
           },
           dataType: 'json',
           success: function(data) {
-              var obj = $.parseJSON(data.status);
-              var newRowContent = "<tr><th>" + obj.med_name + "</th><th>" + obj.dosage + "</th><th>" + obj.end_date + "</th><th>" + obj.cycle + "</th></tr>";
+              var newRowContent = "<tr><th>" + med_name + "</th><th>" + med_dosage + "</th><th>" + days + " days</th><th>" + med_cycle + "</th></tr>";
               $("#medicine_list tbody").append(newRowContent);
           },
           error: function(data) {

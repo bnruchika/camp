@@ -131,19 +131,19 @@
                 </tr>
             </thead>
             <tbody>
-                {% for medicine_name, details in event.medicines.items %}
+                {% for medicine in event.medicines.all %}
                 <tr>
                     <th>
-                        {{medicine_name}}
+                        {{medicine.medicine_name}}
                     </th>
                     <th>
-                        {{details.dosage}}
+                        {{medicine.dosage}}
                     </th>
                     <th>
-                        {{details.end_date}}
+                        {{medicine.end_date}}
                     </th>
                     <th>
-                        {{details.cycle}}
+                        {{medicine.cycle}}
                     </th>
                 </tr>
                 {% endfor %}
@@ -168,4 +168,4 @@
     </div>
 </div>
 
-<button class="btn btn-priamry" id="save_patient_details">Save Details </button>
+<button class="btn btn-priamry" id="save_patient_medicine">Save Details </button>
