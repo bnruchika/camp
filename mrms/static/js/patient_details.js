@@ -8,7 +8,7 @@
 
   function update_symptoms(symptom) {
       $.ajax({
-          url: "/update_patient_symptoms/",
+          url: "/patient/update_symptoms/",
           type: "POST",
           data: {
               "doctor_reported_symptoms": symptom,
@@ -18,7 +18,8 @@
           },
           dataType: 'json',
           success: function(data) {
-              alert("Success")
+              $("#patient_symptoms").append("<li>"+symptom+"</li>")
+              $("#doctor_reported_symptoms").val("")
           },
           error: function(data) {
               alert("error")

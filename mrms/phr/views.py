@@ -5,6 +5,8 @@ import datetime
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
 
 from usermanagement.models import User
 from usermanagement.decorators import doctor_profile_validated
@@ -32,6 +34,8 @@ def find_patient(request):
         return render(request, "find_patient.html")
 
 
+@login_required
+@doctor_profile_validated
 def event_details(request, username, event_id=None):
     return_dict = {}
     try:
@@ -54,20 +58,40 @@ def event_details(request, username, event_id=None):
             error = "Unknown event ID for the patient. Do not edit the url from the screen."
             raise Exception(error)
     else:
-        symptoms = PatientSymptoms.objects.create(
-            doctor_reported_symptoms="", user=return_dict['patient'])
-        symptoms.save()
-        event = PatientEvents.objects.create(
-            user=return_dict['patient'],
-            hospital_id=Hospital.objects.get(id=1),
-            dept_id=DepartmentsInHospital.objects.get(id=1),
-            doctor_id=User.objects.get(username=request.user.username),
-            schedule_date=datetime.date.today(),
-            symptoms=symptoms,
-            is_open=True
-        )
-        return_dict["event"] = event
+        event = PatientEvents.objects.filter(user=patient).order_by('-id')[0]
+        if event.is_open:
+            return_dict["event"] = event
+        else:
+            symptoms = PatientSymptoms.objects.create(
+                doctor_reported_symptoms="", user=return_dict['patient'])
+            symptoms.save()
+            event = PatientEvents.objects.create(
+                user=return_dict['patient'],
+                hospital_id=Hospital.objects.get(id=1),
+                dept_id=DepartmentsInHospital.objects.get(id=1),
+                doctor_id=User.objects.get(username=request.user.username),
+                schedule_date=datetime.date.today(),
+                symptoms=symptoms,
+                is_open=True
+            )
+            return_dict["event"] = event
     history = PatientEvents.objects.filter(user=request.user)
     return_dict["history"] = history
     return render(
         request, "patient_details.html", return_dict)
+
+@require_http_methods(["POST"])
+@login_required
+@doctor_profile_validated
+def update_patient_symptoms(request):
+    event_id = request.POST.get("event_id")
+    if event_id:
+        event = PatientEvents.objects.get(id=event_id)
+        symptoms = PatientSymptoms.objects.get(id=event.symptoms.id)
+        symptoms.doctor_reported_symptoms = symptoms.doctor_reported_symptoms +","+request.POST.get("doctor_reported_symptoms")
+        symptoms.save()
+        return JsonResponse(
+            {"symptoms": event.symptoms.doctor_reported_symptoms}, status=201)
+    else:
+        return JsonResponse(
+            {"error": "Event Not Created. Register Patient First ?"}, status=500)
