@@ -6,16 +6,20 @@ import json
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 
 from usermanagement.models import User
 from usermanagement.decorators import doctor_profile_validated
 
-from phr.models import PatientAllergies, PatientEvents, PatientSymptoms, PatientMedicines
+from phr.models import PatientAllergies, PatientEvents, PatientSymptoms, PatientMedicines, DCMImages
 from hms.models import Hospital, DepartmentsInHospital, Department
 # Create your views here.
 
+def handle_uploaded_file(f,name):
+    with open('media/'+name, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
 
 @login_required
 @doctor_profile_validated
@@ -127,3 +131,20 @@ def update_patient_medicines(request):
     else:
         return JsonResponse(
             {"error": "Event Not Created. Register Patient First ?"}, status=500)
+
+@login_required
+def upload_dcm_image(request):
+    myfiles = request.FILES.getlist("dcmimages")
+    patient_id = request.POST.get("patient_id")
+    event_id = request.POST.get("event_id")
+    for image in myfiles:
+        #handle_uploaded_file(f,name)
+        dcmimage = DCMImages(user=User.objects.get(username=request.user.username),pic=image)
+        dcmimage.save()
+        handle_uploaded_file(image,str(dcmimage.id))
+        event = PatientEvents.objects.get(id=event_id)
+        print(event.dcmimages)
+        event.dcmimages.add(dcmimage)
+        print(event.dcmimages)
+        event.save()
+    return HttpResponseRedirect("/patient/details/%s/%s/"%(patient_id,event_id))

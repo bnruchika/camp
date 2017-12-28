@@ -36,7 +36,7 @@
     </div>
     <div class="col-md-4 col-lg-4">
         <div class="card border-primary">
-            <h3 class="card-header">Diseases (Needs a better way to say this)</h3>
+            <h3 class="card-header">Cancer Name and Stage</h3>
             <div class="card-body">
                 <input type="text" id="patient_diseases" class="form-control" placeholder="Enter Diseases here and hit Enter">
             </div>
@@ -167,5 +167,35 @@
         {{event.tests.strip}}
     </div>
 </div>
+<form method="POST" enctype="multipart/form-data" action="/patient/upload_dcm_image/">
+    <div class="row">
+        <div class="col-md-offset-1 col-lg-offset-1">
+            &nbsp;
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <div class="card border-primary">
+                <h3 class="card-header">Upload DCM Images</h3>
+                <div class="card-body">
+                    <input type="hidden" name="event_id" value="{{event.id}}">
+                    <input type="hidden" name="patient_id" value="{{event.user.username}}">
+
+                    {%csrf_token%}
+                    <input type="file" name="dcmimages" multiple="multiple" id="dcmimages">
+                    <button class="btn btn-priamry" type="submit">Upload Images </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            List of DCM files available/uploading
+            <ul id="dcm_filelist">
+                {% for image in event.dcmimages.all %}
+                    <img src="/media/{{image.pic}}"/>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</form>
+
 
 <button class="btn btn-priamry" id="save_patient_medicine">Save Details </button>

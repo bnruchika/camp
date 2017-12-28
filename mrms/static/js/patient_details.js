@@ -146,7 +146,32 @@
 
 
   })
+
   /*
+  $("input:file").change(function (){
+      var fp = $("#dcmimages")
+      var len = fp[0].files.length
+      for (var i = 0; i < len; i++) {
+        $("#dcm_filelist").append("<li>"+fp[0].files[i].name+"</li>")
+        file = fp[0].files[i];
+        var formdata = new FormData();
+        formdata.append('file_upload', file);
+        $.ajax({
+            type:"POST",
+            url:"/patient/upload_dcm_image/",
+            enctype: "multipart/form-data",
+            data:formdata,
+            dataType: 'json',
+            success: function(data) {
+                var newRowContent = "<tr><th>" + med_name + "</th><th>" + med_dosage + "</th><th>" + days + " days</th><th>" + med_cycle + "</th></tr>";
+                $("#medicine_list tbody").append(newRowContent);
+            },
+            error: function(data) {
+                alert("error")
+            }
+        })
+      }
+     });
   on click -> Get the values of medicine name , dosage .....
   and populate in the table.
   */
