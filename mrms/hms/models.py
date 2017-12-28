@@ -61,7 +61,7 @@ class Hospital(DateTimeModel):
         return self.hospital_name
 
 
-class DeptartmentsInHospital(DateTimeModel):
+class DepartmentsInHospital(DateTimeModel):
     hospital_dept_id = models.CharField(
         max_length=100,
         blank=False,

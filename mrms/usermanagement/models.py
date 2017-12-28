@@ -16,7 +16,7 @@ from django.contrib.auth.models import (
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, dob, gender, password=None):
+    def create_user(self, username, dob, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -27,23 +27,27 @@ class UserManager(BaseUserManager):
         user = self.model(
             email=username,
             dob=dob,
-            gender=gender,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, dob, gender, password=None):
+    def create_superuser(self, username, dob, password=None):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
-        user = self.create_user(
-            username=username,
+        if not username:
+            raise ValueError('Users must have an phone number')
+
+        user = self.model(
+            email=username,
             dob=dob,
-            gender=gender,
         )
+
+        user.set_password(password)
+        user.is_staff = True
         user.is_admin = True
         user.save(using=self._db)
         return user
@@ -116,7 +120,7 @@ class User(AbstractUser):
         verbose_name="Fields of Specialization",
         max_length=200)
 
-    REQUIRED_FIELDS = ["dob", "gender"]
+    REQUIRED_FIELDS = ["dob"]
 
     objects = UserManager()
 

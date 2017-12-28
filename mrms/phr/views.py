@@ -10,7 +10,7 @@ from usermanagement.models import User
 from usermanagement.decorators import doctor_profile_validated
 
 from phr.models import PatientAllergies, PatientEvents, PatientSymptoms
-
+from hms.models import Hospital, DepartmentsInHospital, Department
 # Create your views here.
 
 
@@ -59,9 +59,9 @@ def event_details(request, username, event_id=None):
         symptoms.save()
         event = PatientEvents.objects.create(
             user=return_dict['patient'],
-            hospital_id="1",
-            dept_id="1",
-            doctor_id="1",
+            hospital_id=Hospital.objects.get(id=1),
+            dept_id=DepartmentsInHospital.objects.get(id=1),
+            doctor_id=User.objects.get(username=request.user.username),
             schedule_date=datetime.date.today(),
             symptoms=symptoms,
             is_open=True

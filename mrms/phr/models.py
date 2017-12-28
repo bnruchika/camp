@@ -7,8 +7,7 @@ from mrms.models import DateTimeModel
 
 from usermanagement.models import User
 
-from hms.models import Hospital, DeptartmentsInHospital
-
+from hms.models import Hospital, DepartmentsInHospital
 
 
 class PatientOperation(DateTimeModel):
@@ -93,12 +92,20 @@ class PatientAllergies(DateTimeModel):
 
 
 class PatientEvents(DateTimeModel):
-    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="patient_id")
+    user = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        related_name="patient_id")
     tenant_id = models.CharField(max_length=50, default="Atom360", blank=False,
                                  null=False)
     hospital_id = models.ForeignKey(Hospital, on_delete=models.PROTECT)
-    dept_id = models.ForeignKey(DeptartmentsInHospital, on_delete=models.PROTECT)
-    doctor_id = models.ForeignKey(User, on_delete=models.PROTECT,related_name="doctor_id")
+    dept_id = models.ForeignKey(
+        DepartmentsInHospital,
+        on_delete=models.PROTECT)
+    doctor_id = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        related_name="doctor_id")
     visit_date = models.DateField(auto_now=True)
     schedule_date = models.DateField(blank=False, null=False)
     symptoms = models.ForeignKey(PatientSymptoms, on_delete=models.PROTECT)

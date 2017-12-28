@@ -25,7 +25,7 @@
                     <td id="patient_name">{{patient.first_name|default_if_none:"Patient Name Unknown"}}</td>
                     <td id="patient_age"></td>
                     <td id="patient_gender">{{patient.gender}}</td>
-                    <td><a href="/patient_details/{{patient.username}}/">View Patient Details</a></td>
+                    <td><a href="{% url 'event_details' username=patient.username %}">View Patient Details</a></td>
                 </tr>
             </tbody>
         </table>
