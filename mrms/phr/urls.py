@@ -3,7 +3,7 @@ from django.contrib import admin
 
 from mrms.views import home
 
-from phr.views import find_patient, event_details, update_patient_symptoms, update_patient_medicines, upload_dcm_image
+from phr.views import find_patient, event_details, update_patient_symptoms, update_patient_medicines, upload_dcm_image, close_event
 
 urlpatterns = [
                url(r'^find$',
@@ -24,5 +24,8 @@ urlpatterns = [
                 url(r'^upload_dcm_image/$',
                   upload_dcm_image,
                   name="upload_dcm_image"),
+                url(r'^close_event/$',
+                  close_event,
+                  name="close_event"),
 
                ]

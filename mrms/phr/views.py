@@ -24,7 +24,9 @@ def handle_uploaded_file(f,name):
 @login_required
 @doctor_profile_validated
 def find_patient(request):
+    print(request.method)
     if request.method == "POST":
+        print("Comes here")
         # make a post to ehr here.
         username = request.POST.get("mobile_number")
         patient = User.objects.get(username=username)
@@ -148,3 +150,11 @@ def upload_dcm_image(request):
         print(event.dcmimages)
         event.save()
     return HttpResponseRedirect("/patient/details/%s/%s/"%(patient_id,event_id))
+
+@login_required
+def close_event(request):
+    event_id = request.POST.get("event_id")
+    event = PatientEvents.objects.get(id=event_id)
+    event.is_open = False
+    event.save()
+    return HttpResponseRedirect("/patient/find/")

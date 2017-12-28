@@ -197,5 +197,8 @@
     </div>
 </form>
 
-
-<button class="btn btn-priamry" id="save_patient_medicine">Save Details </button>
+<form method="POST" action="/patient/close_event/">
+    <input type="hidden" name="event_id" value="{{event.id}}">
+    {% csrf_token %}
+    <button class="btn btn-priamry" type="submit">Close Issue </button>
+</form>

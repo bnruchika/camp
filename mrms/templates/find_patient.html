@@ -1,5 +1,5 @@
 {%load static%} {% include 'base.html'%} {% block content %} {% if error %} {{error}} {% endif %}
-<form method="POST" action=".">
+<form method="POST" action="/patient/find">
     <div class="find-patient is-responsive">
         {% csrf_token %}
         <div class="form-group">
@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="form-group form-control-md mx-sm-5">
-            <button id="find_patient" type="submit" class="btn btn-primary"> Find Patient </button>
+            <button type="submit" class="btn btn-primary"> Find Patient </button>
         </div>
 </form>
 
