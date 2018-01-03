@@ -1,0 +1,78 @@
+[{
+        "model": "hms.HospitalTypes",
+        "pk": 1,
+        "fields": {
+            "hospital_type": "clinic",
+            "datetimemodel_ptr_id": 1
+        }
+    },
+    {
+        "model": "hms.HospitalTypes",
+        "pk": 2,
+        "fields": {
+            "hospital_type": "24*7",
+            "datetimemodel_ptr_id": 1
+        }
+    },
+    {
+        "model": "hms.HospitalTypes",
+        "pk": 3,
+        "fields": {
+            "hospital_type": "cancerclinic",
+            "datetimemodel_ptr_id": 1
+
+        }
+    },
+    {
+        "model": "hms.Department",
+        "pk": 1,
+        "fields": {
+            "dept_id": "skin101",
+            "dept_name": "Skin Cancer Ward 1",
+            "datetimemodel_ptr_id": 1
+        }
+    },
+    {
+        "model": "hms.Department",
+        "pk": 2,
+        "fields": {
+            "dept_id": "tumor101",
+            "dept_name": "Tumor Ward 1",
+            "datetimemodel_ptr_id": 1
+        }
+    },
+    {
+        "model": "hms.Department",
+        "pk": 3,
+        "fields": {
+            "dept_id": "oral101",
+            "dept_name": "Oral Cancer Ward 1",
+            "datetimemodel_ptr_id": 1
+        }
+    },
+    {
+        "model": "hms.Hospital",
+        "pk": 1,
+        "fields": {
+            "hospital_name": "Atom360 Cancer Hospital",
+            "hospital_location": "Jakkur , Bangalore",
+            "hospital_type": 1,
+            "hospital_reg_no": "123456789",
+            "hospital_registered_by": 1,
+            "datetimemodel_ptr_id": 1
+        }
+    },
+    {
+        "model": "hms.departmentsinhospital",
+        "pk": 2,
+        "fields": {
+            "hospital_dept_id": "atom-oral-1",
+            "hospital_id": 1,
+            "dept": "Oral Cancer Ward 1",
+            "no_of_doctors": 1,
+            "dept_location": null,
+            "dept_notes": null,
+            "datetimemodel_ptr_id": 1
+        }
+    }
+]

@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Hack';
+    src: url('/static/fonts/Hack-Regular-webfont.woff') format('woff'), /* Pretty Modern Browsers */
+}
+* {
+    font-family: "Hack"
+}

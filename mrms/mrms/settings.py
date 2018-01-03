@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap4',
+    'usermanagement',
+    'phr',
+    'hms',
     'mrms',
-    'users'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +59,7 @@ ROOT_URLCONF = 'mrms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,6 +124,26 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+# Bootstrap4 specific settings
+BOOTSTRAP4 = {
+    'css_url': '/static/css/bootstrap.min.css',
+    'theme_url': '/static/css/bootstrap-spacelab.min.css',
+    'include_jquery': True,
+    'javascript_url': '/static/js/bootstrap.min.js',
+    'jquery_url': '/static/js/jquery-3.2.1.min.js',
+
+}
 
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'usermanagement.User'
+
+LOGIN_URL = "/auth/login/"
+LOGIN_REDIRECT_URL = '/'
+SITE_ID = 1
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
