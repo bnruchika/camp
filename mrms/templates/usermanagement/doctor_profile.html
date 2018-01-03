@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% load bootstrap4 %} {% block content %} {{form.errors}}
+
+<form method="POST" class="form-horizontal">
+    {% bootstrap_form form%} {%csrf_token%}
+    <button type="submit" class="btn btn-primary">Update Profile</button>
+</form>
+{% endblock %}

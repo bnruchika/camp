@@ -1,0 +1,204 @@
+{%load utilities%}
+<div class="row">
+    <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4"> <strong>Diagnosing {{patient.fullname}} , {{patient.gender}} aged 20 years.</strong> </div>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-lg-offset-1">
+        &nbsp;
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <div class="card border-primary">
+            <h3 class="card-header">Symptoms</h3>
+            <div class="card-body">
+                <input type="text" id="doctor_reported_symptoms" class="form-control" placeholder="Enter Symptoms here and hit enter">
+            </div>
+        </div>
+        <!-- Card -->
+    </div>
+    <div class="col-md-6 col-lg-6">
+        Previously Recorded Symptoms
+        {% with event.symptoms.doctor_reported_symptoms|split:"," as symptoms %}
+        <ul id="patient_symptoms">
+            {% for symptom in symptoms %}
+                {% if symptom %}
+                    <li>{{symptom}}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endwith %}
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-offset-1 col-lg-offset-1">
+        &nbsp;
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <div class="card border-primary">
+            <h3 class="card-header">Cancer Name and Stage</h3>
+            <div class="card-body">
+                <input type="text" id="patient_diseases" class="form-control" placeholder="Enter Diseases here and hit Enter">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        {{event.allergies.strip}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-offset-1 col-lg-offset-1">
+        &nbsp;
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <div class="card border-primary">
+            <h3 class="card-header">Medicines</h3>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" placeholder="Medicine Name" id="med_name">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <input type="text" class="form-control" placeholder="Dosage" id="med_dosage">
+                            </div>
+                            <div class="col-md-12 col-lg-12">
+                                <input type="text" class="form-control" placeholder="No of Days" id="days">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4">
+                        <div class="form">
+                            <strong>When </strong>
+                            <div class="checkbox">
+                                <label>
+                                 <input type="checkbox" value="morning" id="morning"> Morning
+                               </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                 <input type="checkbox" value="afternoon" id="afternoon"> Afternoon
+               </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                 <input type="checkbox" value="night" id="night"> Night
+               </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form">
+                            <strong> Food </strong>
+                            <div class="checkbox">
+                                <label>
+                 <input type="radio" name="food" value="(A)"> After
+               </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                 <input type="radio" name="food" value="(B)"> Before
+               </label>
+                            </div>
+                            <div class="form">
+                                <div class="checkbox">
+                                    <label>
+                   <button type="submit" class="btn btn-sm btn-primary btn-block" id="add_medicine">Add</button>
+                 </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Card -->
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <table class="table" id="medicine_list">
+            <thead>
+                <tr>
+                    <th style="width:40%"> Medicine Name </th>
+                    <th style="width:10%"> Dosage </th>
+                    <th style="width:10%"> End Date </th>
+                    <th style="width:10%"> Consume </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medicine in event.medicines.all %}
+                <tr>
+                    <th>
+                        {{medicine.medicine_name}}
+                    </th>
+                    <th>
+                        {{medicine.dosage}}
+                    </th>
+                    <th>
+                        {{medicine.end_date}}
+                    </th>
+                    <th>
+                        {{medicine.cycle}}
+                    </th>
+                </tr>
+                {% endfor %}
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-offset-1 col-lg-offset-1">
+        &nbsp;
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <div class="card border-primary">
+            <h3 class="card-header">Tests</h3>
+            <div class="card-body">
+                <input type="text" id="patient_tests" class="form-control" placeholder="Enter Test name and hit enter">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        {{event.tests.strip}}
+    </div>
+</div>
+<form method="POST" enctype="multipart/form-data" action="/patient/upload_dcm_image/">
+    <div class="row">
+        <div class="col-md-offset-1 col-lg-offset-1">
+            &nbsp;
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <div class="card border-primary">
+                <h3 class="card-header">Upload DCM Images</h3>
+                <div class="card-body">
+                    <input type="hidden" name="event_id" value="{{event.id}}">
+                    <input type="hidden" name="patient_id" value="{{event.user.username}}">
+
+                    {%csrf_token%}
+                    <input type="file" name="dcmimages" multiple="multiple" id="dcmimages">
+                    <button class="btn btn-priamry" type="submit">Upload Images </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            List of DCM files available/uploading
+            <ul id="dcm_filelist">
+                {% for image in event.dcmimages.all %}
+                    <img src="/media/{{image.pic}}"/>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</form>
+
+<form method="POST" action="/patient/close_event/">
+    <input type="hidden" name="event_id" value="{{event.id}}">
+    {% csrf_token %}
+    <button class="btn btn-priamry" type="submit">Close Issue </button>
+</form>
