@@ -64,10 +64,11 @@ def event_details(request, username, event_id=None):
             error = "Unknown event ID for the patient. Do not edit the url from the screen."
             raise Exception(error)
     else:
-        event = PatientEvents.objects.filter(user=patient).order_by('-id')[0]
-        if event.is_open:
-            return_dict["event"] = event
-        else:
+        try:
+            event = PatientEvents.objects.filter(user=patient)
+            if (len(event) > 0 ) and (event.order_by('-id')[0].is_open):
+                return_dict["event"] = event.order_by('-id')[0]
+        except ObjectDoesNotExist:
             symptoms = PatientSymptoms.objects.create(
                 doctor_reported_symptoms="", user=return_dict['patient'])
             symptoms.save()
@@ -81,6 +82,8 @@ def event_details(request, username, event_id=None):
                 is_open=True
             )
             return_dict["event"] = event
+
+
     history = PatientEvents.objects.filter(user=request.user)
     return_dict["history"] = history
     return render(
@@ -144,9 +147,7 @@ def upload_dcm_image(request):
         dcmimage.save()
         handle_uploaded_file(image,str(dcmimage.id))
         event = PatientEvents.objects.get(id=event_id)
-        print(event.dcmimages)
         event.dcmimages.add(dcmimage)
-        print(event.dcmimages)
         event.save()
     return HttpResponseRedirect("/patient/details/%s/%s/"%(patient_id,event_id))
 
