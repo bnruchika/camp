@@ -51,7 +51,7 @@
         }
     },
     {
-        "model": "hms.Hospital",
+        "model": "hms.admin.Hospital",
         "pk": 1,
         "fields": {
             "hospital_name": "Atom360 Cancer Hospital",
