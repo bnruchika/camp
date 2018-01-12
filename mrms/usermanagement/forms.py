@@ -11,12 +11,24 @@ from usermanagement.models import User
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
-        label="Mobile Number",
+        label=" ",
         max_length=30,
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'name': 'username'}))
+                'name': 'username',
+                'placeholder':"Mobile number"
+                }))
+    password = forms.CharField(
+        label=" ",
+        max_length=30,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'name': 'username',
+                'password': forms.PasswordInput(),
+                'placeholder':"Enter your password"
+                }))
 
 
 class SignUpForm(UserCreationForm):
