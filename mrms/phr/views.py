@@ -24,9 +24,7 @@ def handle_uploaded_file(f,name):
 @login_required
 @doctor_profile_validated
 def find_patient(request):
-    print(request.method)
     if request.method == "POST":
-        print("Comes here")
         # make a post to ehr here.
         username = request.POST.get("mobile_number")
         patient = User.objects.get(username=username)

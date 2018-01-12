@@ -19,14 +19,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from phr.views import find_patient
-
+from hms.views import home
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'auth/', include('usermanagement.urls')),
     url(r'user/', include('usermanagement.urls')),
     url(r'patient/', include('phr.urls')),
-    url(r'^$', find_patient, name='home'),
+    url(r'^find_patient/$', find_patient, name='find_patient'),
+    url(r'^$',home,name="home")
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
