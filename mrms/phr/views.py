@@ -68,7 +68,9 @@ def event_details(request, username, event_id=None):
             event = PatientEvents.objects.filter(user=patient)
             if (len(event) > 0 ) and (event.order_by('-id')[0].is_open):
                 return_dict["event"] = event.order_by('-id')[0]
-        except ObjectDoesNotExist:
+            else:
+                raise Exception("No open event found for patient. Need to create a new one")
+        except Exception:
             symptoms = PatientSymptoms.objects.create(
                 doctor_reported_symptoms="", user=return_dict['patient'])
             symptoms.save()
