@@ -6,13 +6,13 @@ from django.contrib.auth import login, authenticate
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.core.urlresolvers import reverse
 
 from usermanagement.forms import SignUpForm, LoginForm, DoctorProfileForm
 from usermanagement.models import User
 
-# Create your views here.
-
+# TODO : All screens are now assuming the doctor is the one logged in. Need to re-drect based on roles.
+# TODO: Need to make forgot password and delete account working
 
 def register(request):
     if request.method == 'POST':
@@ -24,7 +24,8 @@ def register(request):
             user = authenticate(username=username, password=raw_password)
             if user:
                 login(request, user)
-                return HttpResponseRedirect('/')
+                url = reverse('find_patient')
+                return HttpResponseRedirect(url)
     else:
         form = SignUpForm()
     return render(request, 'usermanagement/signup.html', {'form': form})
@@ -42,7 +43,8 @@ def login_view(request):
             # Is the account active? It could have been disabled.
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/')
+                url = reverse('find_patient')
+                return HttpResponseRedirect(url)
         else:
             # Bad login details were provided. So we can't log the user in.
             form = LoginForm()
@@ -63,7 +65,8 @@ def profile(request):
             form.save()
             user.doctor_activated = True
             user.save()
-            return HttpResponseRedirect("/")
+            url = reverse('find_patient')
+            return HttpResponseRedirect(url)
         else:
             return render(request,
                           'usermanagement/doctor_profile.html',
@@ -77,6 +80,3 @@ def profile(request):
         return render(request,
                       'usermanagement/doctor_profile.html',
                       {'form': form})
-
-
-# TODO: Need to make forgot password and delete account working
