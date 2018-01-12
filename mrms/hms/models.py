@@ -91,3 +91,16 @@ class DepartmentsInHospital(DateTimeModel):
     def __str__(self):
         return "%s - %s" % (self.hospital_id.hospital_name,
                             self.dept.dept_name)
+
+class BillingComponents(DateTimeModel):
+    component_types = (
+        ('mandatory','Mandatory like Consultation Cost'),
+        ('optional','Optional'),
+        ('onetime','OneTime Cost')
+    )
+    hospital_ref_id = models.ForeignKey(Hospital,related_name="hospital_ref_id")
+    created_by = models.ForeignKey(User,related_name="created_by")
+    updated_by = models.ForeignKey(User,related_name='updated_by')
+    billing_component = models.TextField(verbose_name="What is the cost about")
+    component_cost = models.PositiveIntegerField(verbose_name="What is the cost")
+    component_type = models.CharField(max_length=30,verbose_name="Mandatory or Optional or One Time Cost",choices=component_types)
