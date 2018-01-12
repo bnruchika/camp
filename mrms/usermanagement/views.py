@@ -24,7 +24,7 @@ def register(request):
             user = authenticate(username=username, password=raw_password)
             if user:
                 login(request, user)
-                url = reverse('find_patient')
+                url = reverse('login')
                 return HttpResponseRedirect(url)
     else:
         form = SignUpForm()
