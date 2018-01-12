@@ -18,16 +18,13 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-from phr.views import find_patient
-
 urlpatterns = [
-    url(r'^nimda/', admin.site.urls),
+    url(r'patient/', include('phr.urls')),
     url(r'auth/', include('usermanagement.urls')),
     url(r'user/', include('usermanagement.urls')),
     url(r'admin/',include('hms.urls')),
     url(r'doctor/',include('hms.urls')),
-    url(r'patient/', include('phr.urls')),
-    url(r'^find_patient/$', find_patient, name='find_patient'),
+    url(r'^nimda/', admin.site.urls),
 
 
 ]

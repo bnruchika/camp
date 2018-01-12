@@ -36,6 +36,7 @@ def find_patient(request):
                 request, "find_patient.html", {
                     'error': "Patient with this mobile number not found"})
     else:
+        print("Cpomes here")
         return render(request, "find_patient.html")
 
 

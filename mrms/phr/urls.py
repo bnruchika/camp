@@ -6,7 +6,7 @@ from mrms.views import home
 from phr.views import find_patient, event_details, update_patient_symptoms, update_patient_medicines, upload_dcm_image, close_event
 
 urlpatterns = [
-               url(r'^find$',
+               url(r'^find/$',
                    find_patient,
                    name="find_patient"),
                url(r'^details/(?P<username>\d+)/$',

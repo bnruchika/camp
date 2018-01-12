@@ -1,5 +1,5 @@
 {%load static%} {% include 'base.html'%} {% block content %} {% if error %} {{error}} {% endif %}
-<form method="POST" action="/patient/find">
+<form method="POST" action="{% url 'find_patient'%}">
     <div class="find-patient is-responsive">
         {% csrf_token %}
         <div class="form-group">
