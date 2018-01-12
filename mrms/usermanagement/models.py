@@ -42,7 +42,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an phone number')
 
         user = self.model(
-            email=username,
+            username=username,
             dob=dob,
         )
 
