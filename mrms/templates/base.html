@@ -7,15 +7,18 @@
     <meta name="description" content="">
     <meta name="author" content="Atom360">
     <title>Atom360 MRMS</title>
-    {% include 'navbar.html' %}
 </head>
-{% load static %} {# Load the tag library #} {% load bootstrap4 %} {# Load CSS and JavaScript #} {% bootstrap_css %} {% bootstrap_javascript %} {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
-<link href="{% static " /css/bootstrap_override.css "%}" rel="stylesheet">
-<link href="{% static " /css/bootstrap-datepicker.min.css "%}" rel="stylesheet">
-<link href="{% static " /css/jquery.seat-charts.css "%}" rel="stylesheet">
-<link href="{% static " /css/atom360.css "%}" rel="stylesheet">
+{% load static %} 
+<script src="{% static "/js/jquery-3.2.1.min.js"%}"></script>
+
+{# Load the tag library #} {% load bootstrap4 %} {# Load CSS and JavaScript #} {% bootstrap_css %} {% bootstrap_javascript %} {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
+<link href="{% static "/css/bootstrap_override.css"%}" rel="stylesheet">
+<link href="{% static "/css/bootstrap-datepicker.min.css"%}" rel="stylesheet">
+<link href="{% static "/css/jquery.seat-charts.css"%}" rel="stylesheet">
+<link href="{% static "/css/atom360.css"%}" rel="stylesheet">
 
 <body>
+    {% include 'navbar.html' %}
     <div class="container-fluid">
         {% block content %} {% endblock %}
     </div>

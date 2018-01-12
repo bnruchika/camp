@@ -130,11 +130,11 @@ STATICFILES_DIRS = [
 
 # Bootstrap4 specific settings
 BOOTSTRAP4 = {
+    'jquery_url': '/static/js/jquery-3.2.1.min.js',
     'css_url': '/static/css/bootstrap.min.css',
-    'theme_url': '/static/css/bootstrap-spacelab.min.css',
+    'theme_url': '/static/css/bootstrap.min.css',
     'include_jquery': True,
     'javascript_url': '/static/js/bootstrap.min.js',
-    'jquery_url': '/static/js/jquery-3.2.1.min.js',
 
 }
 
