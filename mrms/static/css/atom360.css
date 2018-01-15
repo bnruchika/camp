@@ -74,6 +74,29 @@ div.seatCharts-seat.unav navbar-nav ml-autoailable {
 nav{
   font-size: 18px;
 }
+strong{
+  font-size: 20px;
+}
+.card{
+  margin-top: 15px;
+}
+.row{
+  font-size: 17px;
+}
+.card-body{
+  font-size: 18px;
+}
+.dropdown-item{
+  font-size: 15px;
+}
+.nav-tabs{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 20px;
+  align-items: center;
+  }
+
+}
 div.seatCharts-container {
 	border-right: 1px dotted #adadad;
 	width: 100%;
