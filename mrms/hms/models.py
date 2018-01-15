@@ -111,6 +111,9 @@ class BillingComponents(DateTimeModel):
         verbose_name="Mandatory or Optional or One Time Cost",
         choices=component_types)
 
+    def __str__(self):
+        return self.billing_component
+
 class HospitalUserRole(DateTimeModel):
     role_choices = (
         ('receptionist','Receptionist'),
@@ -128,7 +131,7 @@ class Invitations(DateTimeModel):
     invite_user_reference = models.ForeignKey(User, on_delete=models.CASCADE)
     hospital_invited_into = models.ForeignKey(
         Hospital, related_name="hospital_invited_into")
-    invite_user_reference = models.ForeignKey(User,on_delete=models.CASCADE)
+    invited_by = models.ForeignKey(User,on_delete=models.CASCADE,related_name="invited_by",default=User.objects.get(id=1))
     is_invitation_notified = models.BooleanField(default=False)
     is_user_logged_in = models.BooleanField(default=False)
 

@@ -149,3 +149,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 APPEND_SLASH = True
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'Username@atom360.io'
+EMAIL_HOST_PASSWORD = 'enter_password_here'
+DEFAULT_FROM_EMAIL = 'Username@atom360.io'
+DEFAULT_TO_EMAIL = 'to email'
