@@ -67,9 +67,35 @@ div.seatCharts-seat.focused {
 div.seatCharts-seat.selected {
 	background-color: #28A745;
 }
-div.seatCharts-seat.unavailable {
+div.seatCharts-seat.unav navbar-nav ml-autoailable {
 	background-color: #eaeaea;
     color: #ffffff;
+}
+nav{
+  font-size: 18px;
+}
+strong{
+  font-size: 20px;
+}
+.card{
+  margin-top: 15px;
+}
+.row{
+  font-size: 17px;
+}
+.card-body{
+  font-size: 18px;
+}
+.dropdown-item{
+  font-size: 15px;
+}
+.nav-tabs{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 20px;
+  align-items: center;
+  }
+
 }
 div.seatCharts-container {
 	border-right: 1px dotted #adadad;
