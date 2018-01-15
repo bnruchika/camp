@@ -72,6 +72,16 @@ class User(AbstractUser):
         ('female', 'Female'),
         ('others', 'Others')
     )
+    blood_group_choices = (
+        ('A+ve','A+ve'),
+        ('B+ve','B+ve'),
+        ('A-ve','A-ve'),
+        ('B-ve','B-ve'),
+        ('O+ve','O+ve'),
+        ('O-ve','O-ve'),
+        ('AB+ve','AB+ve'),
+        ('AB-ve','AB-ve'),
+    )
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -84,6 +94,7 @@ class User(AbstractUser):
     # TODO : The baddest implementation that can ever be done. Do fix it
     # without fail
     dob = models.DateField(default="1987-09-13")
+    blood_group = models.CharField(max_length=5,choices=blood_group_choices,default="")
     is_doctor = models.BooleanField(default=False)
     doctor_activated = models.BooleanField(default=False)
     doctor_registration_number = models.CharField(
