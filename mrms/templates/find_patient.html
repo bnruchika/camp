@@ -37,6 +37,12 @@
 </div>
 </div>
 
+{% elif error %}
+
+<div class="alert alert-primary" role="alert">
+  This is a primary alert—check it out!
+</div>
+
 {% endif %} {% endblock %} {%block pagescss%}
 <link href="{% static " /css/atom360.css "%}" rel="stylesheet"> </link>
 

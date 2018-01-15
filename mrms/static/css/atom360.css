@@ -67,9 +67,12 @@ div.seatCharts-seat.focused {
 div.seatCharts-seat.selected {
 	background-color: #28A745;
 }
-div.seatCharts-seat.unavailable {
+div.seatCharts-seat.unav navbar-nav ml-autoailable {
 	background-color: #eaeaea;
     color: #ffffff;
+}
+nav{
+  font-size: 18px;
 }
 div.seatCharts-container {
 	border-right: 1px dotted #adadad;
