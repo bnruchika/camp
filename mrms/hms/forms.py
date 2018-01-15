@@ -8,6 +8,9 @@ class BillingCreationUpdationForm(forms.ModelForm):
     class Meta:
         model = BillingComponents
         exclude = [
+            'hospital_ref_id',
+            'created_by',
+            'updated_by'
         ]
 
     def __init__(self, *args, **kwargs):

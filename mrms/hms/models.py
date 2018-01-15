@@ -100,9 +100,9 @@ class BillingComponents(DateTimeModel):
         ('onetime', 'OneTime Cost')
     )
     hospital_ref_id = models.ForeignKey(
-        Hospital, related_name="hospital_ref_id")
-    created_by = models.ForeignKey(User, related_name="created_by")
-    updated_by = models.ForeignKey(User, related_name='updated_by')
+        Hospital, related_name="hospital_ref_id",default=1)
+    created_by = models.ForeignKey(User, related_name="created_by",default=1)
+    updated_by = models.ForeignKey(User, related_name='updated_by',default=1)
     billing_component = models.TextField(verbose_name="What is the cost about")
     component_cost = models.PositiveIntegerField(
         verbose_name="What is the cost")
