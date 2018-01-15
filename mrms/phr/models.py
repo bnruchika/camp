@@ -116,7 +116,7 @@ class PatientEvents(DateTimeModel):
     symptoms = models.ForeignKey(PatientSymptoms, on_delete=models.PROTECT)
     medicines = models.ManyToManyField(PatientMedicines)
     injection = models.ManyToManyField(PatientInjection)
-    dcmimages = models.ManyToManyField(DCMImages, blank=True,null=True)
+    dcmimages = models.ManyToManyField(DCMImages, blank=True, null=True)
     tests = models.ManyToManyField(PatientTests)
     clinical_advice = models.TextField(blank=True, null=True)
     doctor_notes = models.TextField(blank=True, null=True)

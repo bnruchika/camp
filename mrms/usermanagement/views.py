@@ -14,6 +14,7 @@ from usermanagement.models import User
 # TODO : All screens are now assuming the doctor is the one logged in. Need to re-drect based on roles.
 # TODO: Need to make forgot password and delete account working
 
+
 def register(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)

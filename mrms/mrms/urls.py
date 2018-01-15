@@ -22,11 +22,12 @@ urlpatterns = [
     url(r'patient/', include('phr.urls')),
     url(r'auth/', include('usermanagement.urls')),
     url(r'user/', include('usermanagement.urls')),
-    url(r'admin/',include('hms.urls')),
-    url(r'doctor/',include('hms.urls')),
+    url(r'admin/', include('hms.urls')),
+    url(r'doctor/', include('hms.urls')),
     url(r'^nimda/', admin.site.urls),
 
 
 ]
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

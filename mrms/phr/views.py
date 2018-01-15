@@ -16,10 +16,12 @@ from phr.models import PatientAllergies, PatientEvents, PatientSymptoms, Patient
 from hms.models import Hospital, DepartmentsInHospital, Department
 # Create your views here.
 
-def handle_uploaded_file(f,name):
-    with open('media/'+name, 'wb+') as destination:
+
+def handle_uploaded_file(f, name):
+    with open('media/' + name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
+
 
 @login_required
 @doctor_profile_validated
@@ -66,10 +68,11 @@ def event_details(request, username, event_id=None):
     else:
         try:
             event = PatientEvents.objects.filter(user=patient)
-            if (len(event) > 0 ) and (event.order_by('-id')[0].is_open):
+            if (len(event) > 0) and (event.order_by('-id')[0].is_open):
                 return_dict["event"] = event.order_by('-id')[0]
             else:
-                raise Exception("No open event found for patient. Need to create a new one")
+                raise Exception(
+                    "No open event found for patient. Need to create a new one")
         except Exception:
             symptoms = PatientSymptoms.objects.create(
                 doctor_reported_symptoms="", user=return_dict['patient'])
@@ -85,11 +88,11 @@ def event_details(request, username, event_id=None):
             )
             return_dict["event"] = event
 
-
     history = PatientEvents.objects.filter(user=request.user)
     return_dict["history"] = history
     return render(
         request, "patient_details.html", return_dict)
+
 
 @require_http_methods(["POST"])
 @login_required
@@ -99,7 +102,8 @@ def update_patient_symptoms(request):
     if event_id:
         event = PatientEvents.objects.get(id=event_id)
         symptoms = PatientSymptoms.objects.get(id=event.symptoms.id)
-        symptoms.doctor_reported_symptoms = symptoms.doctor_reported_symptoms +","+request.POST.get("doctor_reported_symptoms")
+        symptoms.doctor_reported_symptoms = symptoms.doctor_reported_symptoms + \
+            "," + request.POST.get("doctor_reported_symptoms")
         symptoms.save()
         return JsonResponse(
             {"symptoms": event.symptoms.doctor_reported_symptoms}, status=201)
@@ -133,10 +137,12 @@ def update_patient_medicines(request):
             "event_id": event.id,
         }
         print(response_dict)
-        return JsonResponse({"success":"Added medicine successfully"}, status=201)
+        return JsonResponse(
+            {"success": "Added medicine successfully"}, status=201)
     else:
         return JsonResponse(
             {"error": "Event Not Created. Register Patient First ?"}, status=500)
+
 
 @login_required
 def upload_dcm_image(request):
@@ -144,14 +150,20 @@ def upload_dcm_image(request):
     patient_id = request.POST.get("patient_id")
     event_id = request.POST.get("event_id")
     for image in myfiles:
-        #handle_uploaded_file(f,name)
-        dcmimage = DCMImages(user=User.objects.get(username=request.user.username),pic=image)
+        # handle_uploaded_file(f,name)
+        dcmimage = DCMImages(
+            user=User.objects.get(
+                username=request.user.username),
+            pic=image)
         dcmimage.save()
-        handle_uploaded_file(image,str(dcmimage.id))
+        handle_uploaded_file(image, str(dcmimage.id))
         event = PatientEvents.objects.get(id=event_id)
         event.dcmimages.add(dcmimage)
         event.save()
-    return HttpResponseRedirect("/patient/details/%s/%s/"%(patient_id,event_id))
+    return HttpResponseRedirect(
+        "/patient/details/%s/%s/" %
+        (patient_id, event_id))
+
 
 @login_required
 def close_event(request):

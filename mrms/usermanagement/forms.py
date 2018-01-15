@@ -17,8 +17,8 @@ class LoginForm(AuthenticationForm):
             attrs={
                 'class': 'form-control',
                 'name': 'username',
-                'placeholder':"Mobile number"
-                }))
+                'placeholder': "Mobile number"
+            }))
     password = forms.CharField(
         label=" ",
         max_length=30,
@@ -27,8 +27,8 @@ class LoginForm(AuthenticationForm):
                 'class': 'form-control',
                 'name': 'username',
                 'password': forms.PasswordInput(),
-                'placeholder':"Enter your password"
-                }))
+                'placeholder': "Enter your password"
+            }))
 
 
 class SignUpForm(UserCreationForm):

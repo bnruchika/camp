@@ -6,29 +6,43 @@
 
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
             {% if user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="{%url 'find_patient'%}">Find Patient</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/hospital_depts_registration/">Admin</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href=" {% url 'profile' %} ">Profile</a>
-                    <a class="dropdown-item" href="#">Change Password</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href=" {% url 'logout' %} ">Logout</a>
-                </div>
-            </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Dashboard <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'find_patient'%}">Find Patient</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hospital Administration</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href=" {% url 'add_costs' %} ">Costs Management</a>
+                        <a class="dropdown-item" href="{% url 'invite' %}">Invite Users</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/hospital_depts_registration/">Department Management</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href=" {% url 'profile' %} ">Profile</a>
+                        <a class="dropdown-item" href="#">Change Password</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href=" {% url 'logout' %} ">Logout</a>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Clinic Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'base_registration' %}">Patient Registration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Clinic Registration</a>
+                </li>
+
             {% endif %}
-            <li class="nav-item">
-                <a class="nav-link" href="#"></a>
-            </li>
         </ul>
 
     </div>

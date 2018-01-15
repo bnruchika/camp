@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+ {% load bootstrap4 %}
+
+{% block content %}
+
+    <form method="POST" action=".">
+        {% csrf_token %}
+        {% bootstrap_form billingform %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">Add Cost</button>
+        {% endbuttons %}
+    </form>
+    <p>
+    Mandatory Costs
+
+    {% for cost in mandatory_costs %}
+        {{cost.billing_component}}
+        {{cost.component_cost}}
+        <form method="POST" action=".">
+            {% csrf_token %}
+            <input type="text" style="display:none" value="{{cost.id}}" name="cost_id" />
+            <input type="text" style="display:none" value="delete" name="action" />
+            <button class="btn btn-danger">Delete</button>
+        </form>
+    {% endfor %}
+</p>
+<p>
+    OneTime Costs
+
+    {% for cost in onetime_costs %}
+        {{cost.billing_component}}
+        {{cost.component_cost}}
+    {% endfor %}
+</p>
+<p>
+    Optional Costs
+
+    {% for cost in optional_costs %}
+        {{cost.billing_component}}
+        {{cost.component_cost}}
+    {% endfor %}
+</p>
+{% endblock %}

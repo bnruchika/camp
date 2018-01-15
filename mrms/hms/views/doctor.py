@@ -5,12 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 
 
-def invite(request):
-    pass
-
-# TODO: Need to
-
-
 @login_required
 def costs(request):
     pass
