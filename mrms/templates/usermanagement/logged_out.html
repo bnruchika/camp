@@ -3,7 +3,13 @@
 {% block title %}See you!{% endblock %}
 
 {% block content %}
-  <h2>Logged out</h2>
-  <p>You have been successfully logged out.</p>
-  <p><a href="{% url 'login' %}">Log in</a> again.</p>
+<div class = "container">
+<div class="alert alert-success" role="alert" style="margin-top:40px">
+  <h4 class="alert-heading">Logged out!</h4>
+  <p>You have been successfully logged out!</p>
+  <hr>
+    <p><a href="{% url 'login' %}">Login</a> again.</p>
+
+</div>
+</div>
 {% endblock %}
