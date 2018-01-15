@@ -38,15 +38,26 @@
     </div>
     <div class="col-md-4 col-lg-4">
         <div class="card border-primary">
-            <h3 class="card-header">Cancer Name and Stage</h3>
+            <h3 class="card-header">Disease Prediction</h3>
             <div class="card-body">
                 <input type="text" id="patient_diseases" class="form-control" placeholder="Enter Diseases here and hit Enter">
             </div>
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        {{event.allergies.strip}}
+        Diseases
+        {% with event.diseases.patient_diseases|split:"," as diseases %}
+        <ul id="update_diseases">
+            {% for disease in diseases %}
+                {% if disease %}
+                    <li>{{disease}}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endwith %}
+
     </div>
+
 </div>
 
 <div class="row">

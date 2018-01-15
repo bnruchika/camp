@@ -51,6 +51,12 @@ class PatientSymptoms(models.Model):
     doctor_reported_symptoms = models.TextField(blank=False, null=False)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
+class PatientDiseases(models.Model):
+    #patient_reported_symptoms = models.TextField(blank=True, null=True)
+    patient_diseases = models.TextField(blank=False, null=False, default ="")
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+
 
 class PatientMedicines(DateTimeModel):
     cycle_choices = (
@@ -114,6 +120,7 @@ class PatientEvents(DateTimeModel):
     visit_date = models.DateField(auto_now=True)
     schedule_date = models.DateField(blank=False, null=False)
     symptoms = models.ForeignKey(PatientSymptoms, on_delete=models.PROTECT)
+    diseases = models.ForeignKey(PatientDiseases, on_delete=models.PROTECT, default=1)
     medicines = models.ManyToManyField(PatientMedicines)
     injection = models.ManyToManyField(PatientInjection)
     dcmimages = models.ManyToManyField(DCMImages, blank=True, null=True)

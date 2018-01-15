@@ -12,7 +12,7 @@ from django.views.decorators.http import require_http_methods
 from usermanagement.models import User
 from usermanagement.decorators import doctor_profile_validated
 
-from phr.models import PatientAllergies, PatientEvents, PatientSymptoms, PatientMedicines, DCMImages
+from phr.models import PatientAllergies, PatientEvents, PatientSymptoms, PatientMedicines, DCMImages, PatientDiseases
 from hms.models import Hospital, DepartmentsInHospital, Department
 # Create your views here.
 
@@ -38,7 +38,6 @@ def find_patient(request):
                 request, "find_patient.html", {
                     'error': "Patient with this mobile number not found"})
     else:
-        print("Cpomes here")
         return render(request, "find_patient.html")
 
 
@@ -77,6 +76,8 @@ def event_details(request, username, event_id=None):
             symptoms = PatientSymptoms.objects.create(
                 doctor_reported_symptoms="", user=return_dict['patient'])
             symptoms.save()
+            diseases = PatientDiseases.objects.create(patient_diseases="",user = return_dict["patient"])
+            diseases.save()
             event = PatientEvents.objects.create(
                 user=return_dict['patient'],
                 hospital_id=Hospital.objects.get(id=1),
@@ -84,6 +85,7 @@ def event_details(request, username, event_id=None):
                 doctor_id=User.objects.get(username=request.user.username),
                 schedule_date=datetime.date.today(),
                 symptoms=symptoms,
+                diseases=diseases,
                 is_open=True
             )
             return_dict["event"] = event
@@ -110,6 +112,25 @@ def update_patient_symptoms(request):
     else:
         return JsonResponse(
             {"error": "Event Not Created. Register Patient First ?"}, status=500)
+        
+@require_http_methods(["POST"])
+@login_required
+#@doctor_profile_validated
+def update_patient_diseases(request):
+    event_id = request.POST.get("event_id")
+    if event_id:
+        event = PatientEvents.objects.get(id=event_id)
+        diseases = PatientDiseases.objects.get(id=event.diseases.id)
+        diseases.patient_diseases = diseases.patient_diseases + \
+            "," + request.POST.get("patient_diseases")
+        diseases.save()
+        return JsonResponse(
+            {"diseases": event.diseases.patient_diseases}, status=201)
+    else:
+        return JsonResponse(
+            {"error": "Event Not Created. Register Patient First ?"}, status=500)
+
+
 
 
 @require_http_methods(["POST"])
@@ -136,7 +157,6 @@ def update_patient_medicines(request):
         response_dict = {
             "event_id": event.id,
         }
-        print(response_dict)
         return JsonResponse(
             {"success": "Added medicine successfully"}, status=201)
     else:

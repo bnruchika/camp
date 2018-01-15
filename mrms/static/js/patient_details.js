@@ -26,6 +26,28 @@
           }
       })
   }
+ function update_diseases(disease) {
+      $.ajax({
+          url: "/patient/update_diseases/",
+          type: "POST",
+          data: {
+              "patient_diseases": disease,
+              "csrfmiddlewaretoken": csrf_token,
+              "patient_id": patient_id,
+              "event_id": event_id
+          },
+          dataType: 'json',
+          success: function(data) {
+              $("#update_diseases").append("<li>"+disease+"</li>")
+              $("#patient_diseases").val("")
+          },
+          error: function(data) {
+              alert("error")	
+	     console.log(data)
+          }
+      })
+  }
+
 
   function update_data() {
       $.ajax({
@@ -111,6 +133,11 @@
   $("#save_patient_details").click(function() {
       update_data()
   })
+  $("#patient_diseases").keyup(function(e) {
+      if (e.which == 13) {
+          update_diseases(this.value)
+      }
+  });
 
   $("#add_medicine").click(function() {
       var med_name = $("#med_name").val()
