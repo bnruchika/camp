@@ -93,7 +93,7 @@
                             </div>
                             <div class="checkbox">
                                 <label>
-                 <input type="checkbox" value="afternoon" id="afternoon"> Afternoon
+                 <input type="checkbox" value="afternoon" id="afternoon">Afternoon
                </label>
                             </div>
 
@@ -172,12 +172,22 @@
         <div class="card border-primary">
             <h3 class="card-header">Tests</h3>
             <div class="card-body">
-                <input type="text" id="patient_tests" class="form-control" placeholder="Enter Test name and hit enter">
+                <input type="text" id="doctor_reported_tests" class="form-control" placeholder="Enter Test name and hit enter">
             </div>
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        {{event.tests.strip}}
+     Recommended Tests
+        {% with event.tests.doctor_reported_tests|split:"," as tests %}
+        <ul id="patient_tests">
+            {% for test in tests %}
+                {% if test %}
+                    <li>{{test}}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endwith %}
+
     </div>
 </div>
 <!-- Dont worry about this now. But dont remove either. Maintained for archival purposes.

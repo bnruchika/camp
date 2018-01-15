@@ -12,7 +12,7 @@ from django.views.decorators.http import require_http_methods
 from usermanagement.models import User
 from usermanagement.decorators import doctor_profile_validated
 
-from phr.models import PatientAllergies, PatientEvents, PatientSymptoms, PatientMedicines, DCMImages, PatientDiseases
+from phr.models import PatientAllergies, PatientEvents, PatientSymptoms, PatientMedicines, DCMImages, PatientDiseases, PatientTests
 from hms.models import Hospital, DepartmentsInHospital, Department
 # Create your views here.
 
@@ -78,6 +78,13 @@ def event_details(request, username, event_id=None):
             symptoms.save()
             diseases = PatientDiseases.objects.create(patient_diseases="",user = return_dict["patient"])
             diseases.save()
+            tests = PatientTests.objects.create(
+                doctor_reported_tests="", 
+                user=return_dict['patient'],
+                test_date = datetime.datetime.today()
+                )
+            tests.save()
+
             event = PatientEvents.objects.create(
                 user=return_dict['patient'],
                 hospital_id=Hospital.objects.get(id=1),
@@ -85,9 +92,13 @@ def event_details(request, username, event_id=None):
                 doctor_id=User.objects.get(username=request.user.username),
                 schedule_date=datetime.date.today(),
                 symptoms=symptoms,
+                tests=tests,
                 diseases=diseases,
                 is_open=True
             )
+            event.save()
+            event.tests.add(tests)
+            event.save()
             return_dict["event"] = event
 
     history = PatientEvents.objects.filter(user=request.user)
@@ -112,7 +123,24 @@ def update_patient_symptoms(request):
     else:
         return JsonResponse(
             {"error": "Event Not Created. Register Patient First ?"}, status=500)
-        
+@require_http_methods(["POST"])
+@login_required
+@doctor_profile_validated
+def update_patient_tests(request):
+    event_id = request.POST.get("event_id")
+    if event_id:
+        event = PatientEvents.objects.get(id=event_id)
+        tests = PatientTests.objects.get(id=event.tests.id)
+        tests.doctor_reported_tests = tests.doctor_reported_tests + \
+            "," + request.POST.get("doctor_reported_tests")
+        tests.save()
+        return JsonResponse(
+            {"tests": event.tests.doctor_reported_tests}, status=201)
+    else:
+        return JsonResponse(
+            {"error": "Event Not Created. Register Patient First ?"}, status=500)
+
+
 @require_http_methods(["POST"])
 @login_required
 #@doctor_profile_validated
@@ -129,9 +157,6 @@ def update_patient_diseases(request):
     else:
         return JsonResponse(
             {"error": "Event Not Created. Register Patient First ?"}, status=500)
-
-
-
 
 @require_http_methods(["POST"])
 @login_required

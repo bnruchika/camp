@@ -81,7 +81,7 @@ class PatientMedicines(DateTimeModel):
 
 class PatientTests(DateTimeModel):
     # test names should be loaded from a pre-defined set of templates
-    test_name = models.CharField(max_length=100, blank=False, null=False)
+    doctor_reported_tests = models.CharField(max_length=100, blank=False, null=False)
     test_date = models.DateField()  # When to do the test
     test_condition = models.TextField(blank=True, null=True)
     test_results = models.TextField(blank=True, null=True)
@@ -135,3 +135,4 @@ class PatientEvents(DateTimeModel):
         on_delete=models.PROTECT)
     next_vist_date = models.DateField(blank=True, null=True)
     is_open = models.BooleanField(default=False)
+   

@@ -47,6 +47,28 @@
           }
       })
   }
+ function update_tests(test) {
+      $.ajax({
+          url: "/patient/update_tests/",
+          type: "POST",
+          data: {
+              "doctor_reported_tests": test,
+              "csrfmiddlewaretoken": csrf_token,
+              "patient_id": patient_id,
+              "event_id": event_id
+          },
+          dataType: 'json',
+          success: function(data) {
+              $("#patient_tests").append("<li>"+test+"</li>")
+              $("#doctor_reported_tests").val("")
+          },
+          error: function(data) {
+              alert("error")
+             console.log(data)
+          }
+      })
+  }
+
 
 
   function update_data() {
@@ -130,6 +152,12 @@
           update_symptoms(this.value)
       }
   });
+ $('#doctor_reported_tests').keyup(function(e) {
+      if (e.which == 13) {
+          update_tests(this.value)
+      }
+  });
+
   $("#save_patient_details").click(function() {
       update_data()
   })
