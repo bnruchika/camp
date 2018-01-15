@@ -1,12 +1,15 @@
 {%load static%} {% include 'base.html'%} {% block content %} {% if error %} {{error}} {% endif %}
+<div class="container">
+  <div clas="row">
 <form method="POST" action="{% url 'find_patient'%}">
+
     <div class="find-patient is-responsive">
         {% csrf_token %}
         <div class="form-group">
-            Enter patient's UserID or Mobile Number.
+            <h3>Enter patient's UserID or Mobile Number.</h3>
             <label class="sr-only" for="username">Username</label>
             <div class="input-group">
-                <div class="input-group-addon">+91</div>
+
                 <input type="text" name="mobile_number" class="form-control" value="{{username}}" id="username" placeholder="Mobile number">
             </div>
         </div>
@@ -14,7 +17,8 @@
             <button type="submit" class="btn btn-primary"> Find Patient </button>
         </div>
 </form>
-
+</div>
+</div>
 {% if patient %}
 
 <div class="row">
