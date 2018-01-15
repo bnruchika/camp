@@ -15,6 +15,10 @@ from usermanagement.models import User
 
 @login_required
 def invite(request):
+    #TODO: Currently three is no way to figure out which user belongs to which hospital
+    # So using the default hospital
+    hospital = Hospital.objects.get(id=1)
+
     if request.method =="POST":
         userinvitationform = UserInvitationForm(request.POST)
         if userinvitationform.is_valid():
@@ -32,9 +36,6 @@ def invite(request):
                 user.set_password("password")
                 user.is_doctor = True
                 user.save()
-            #TODO: Currently three is no way to figure out which user belongs to which hospital
-            # So using the default hospital
-            hospital = Hospital.objects.get(id=1)
             # Now create an invitation to be sent out
             invitation = Invitations.objects.create(
                 hospital_invited_into=hospital,
@@ -58,9 +59,13 @@ def invite(request):
                 )
             hospitalrole.save()
     userinvitationform = UserInvitationForm()
+    invitations = Invitations.objects.filter(hospital_invited_into=hospital)
     return render(request,
                   'hms/user_invitation.html',
-                  {'userinvitationform':userinvitationform}
+                  {
+                      'userinvitationform':userinvitationform,
+                      'invitations':invitations
+                   }
                   )
 
 

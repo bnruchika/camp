@@ -131,10 +131,6 @@ class Invitations(DateTimeModel):
     invite_user_reference = models.ForeignKey(User, on_delete=models.CASCADE)
     hospital_invited_into = models.ForeignKey(
         Hospital, related_name="hospital_invited_into")
-    invited_by = models.ForeignKey(User,on_delete=models.CASCADE,related_name="invited_by",default=User.objects.get(id=1))
+    invited_by = models.ForeignKey(User,on_delete=models.CASCADE,related_name="invited_by")
     is_invitation_notified = models.BooleanField(default=False)
     is_user_logged_in = models.BooleanField(default=False)
-
-
-    def __str__(self):
-        return self.invited_by

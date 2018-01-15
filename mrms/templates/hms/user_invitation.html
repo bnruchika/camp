@@ -6,4 +6,8 @@
     {{userinvitationform.as_p}}
     <button type="submit" class="btn btn-primary">Invite</button>
 </form>
+
+{% for invitation in invitations %}
+    {{invitation.invite_user_reference.fullname}} -- {{invitation.is_invitation_notified}} -- {{invitation.is_user_logged_in}}
+{% endfor %}
 {% endblock %}
