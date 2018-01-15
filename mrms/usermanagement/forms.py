@@ -58,7 +58,7 @@ class SignUpForm(UserCreationForm):
                 'class': 'form-control datepicker',
                 'name': 'username',
                 'placeholder': 'yyyy-mm-dd'}))
-    full_name = forms.CharField(
+    fullname = forms.CharField(
         label="Enter your full name",
         max_length=30,
         widget=forms.TextInput(

@@ -21,6 +21,10 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            # Update the user's fullname here
+            user = User.objects.get(username=username)
+            user.fullname = request.POST.get("fullname")
+            user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             if user:
