@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
-
-from usermanagement.decorators import doctor_profile_validated
-
+from hms.models import Hospital, HospitalUserRole
+from usermanagement.models import User
+from mrms.utilities import get_user_role_entity
 
 @login_required
-@doctor_profile_validated
 def home(request):
     if request.method == "POST":
         # make a post to ehr here.
@@ -30,3 +29,12 @@ def home(request):
                 {"error": "No user found with this username", "username": username}, 201)
     else:
         return render(request, "find_patient.html")
+
+@login_required
+def dashboard(request):
+    user_role = get_user_role_entity(request)
+    if user_role:
+        role = user_role
+    else:
+        role = "patient"
+    return render(request,'dashboard.html',{"role":role})

@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+from mrms.views import dashboard
 urlpatterns = [
     url(r'patient/', include('phr.urls')),
     url(r'auth/', include('usermanagement.urls')),
@@ -25,6 +26,7 @@ urlpatterns = [
     url(r'admin/', include('hms.urls')),
     url(r'doctor/', include('hms.urls')),
     url(r'^nimda/', admin.site.urls),
+    url(r'^dashboard/$',dashboard,name="dashboard")
 
 
 ]

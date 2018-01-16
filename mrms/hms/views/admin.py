@@ -2,20 +2,21 @@ from django.shortcuts import render
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 
 from hms.forms import BillingCreationUpdationForm, UserInvitationForm
 from hms.models import BillingComponents, Hospital, Invitations,HospitalUserRole
 from usermanagement.models import User
-from usermanagement.decorators import is_related_to_hospital
-# TODO: Need to
-
+from mrms.utilities import is_hospital_admin
 
 @login_required
-@is_related_to_hospital
 def invite(request):
+    user_role = is_hospital_admin(request)
+    if not user_role:
+        raise PermissionDenied
+
     #TODO: Currently three is no way to figure out which user belongs to which hospital
     # So using the default hospital
     hospital = Hospital.objects.get(id=1)
@@ -71,8 +72,11 @@ def invite(request):
 
 
 @login_required
-@is_related_to_hospital
 def costs(request):
+    user_role = is_hospital_admin(request)
+    if not user_role:
+        raise PermissionDenied
+
     hospital = Hospital.objects.get(id=1)
     if request.method == "POST":
         if request.POST.get("action") == "delete":
