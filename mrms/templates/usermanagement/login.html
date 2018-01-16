@@ -1,29 +1,49 @@
 {% extends 'base.html' %} {% load bootstrap4 %} {% block title %}Patient Login{% endblock %} {% block content %}
-<div class="container-fluid">
+<div class="container">
 
   <div class="row">
-    <div class="col-md-8">
-      <img class="img-responsive" alt="Responsive image" style="height:500px; width:500px;" src="/static/images/pic01.png"></img>
-      <h3> Reinventing Life </h3>
+    <div class="col-md-9 col-xl-9 col-lg-9">
     </div>
 
-    <div style="margin-top: 100px;" class="col-md-4">
-  <h2>Hello! {% if error %}
-  <div class="alert alert-danger"> {{error}} </div>
-  {% endif %}
-  <div class="col-md-8">
-      <form method="post">
-          {% csrf_token %} {% bootstrap_form form %} {% buttons %}
-          <button type="submit" class="btn btn-primary">
-               Submit
-          </button>
-          <a href="/auth/register/" class="btn btn-primary"> Signup </a> {% endbuttons %}
-      </form>
+  <div class="col-md-3 col-lg-3 col-sm-12 col-xl-3">
+      <div class="card card border-success mb-3" style="width:23rem;padding-left:20px;padding-right:20px padding-top:-50px">
+          <div class="card-block">
+            <p class="card-text">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist" style="font-size:14px">
+                  <li class="nav-item">
+                    <a class="nav-link active text-left" data-toggle="tab" href="#login" role="tab">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-left" data-toggle="tab" href="#register" role="tab">Register</a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="login" role="tabpanel">
+                      <form method="post" class="form form-horizontal" action="/auth/login/">
+                          {% csrf_token %} {% bootstrap_form form layout='inline'%} {% buttons %}
+                          <button type="submit" class="btn btn-outline-success btn-sm">
+                               Login
+                          </button>
+
+                          {% endbuttons %}
+                      </form>
+                  </div>
+                  <div class="tab-pane" id="register" role="tabpanel">
+                      <form method="post" class="form form-horizontal" action="/auth/register/">
+                          {% csrf_token %} {% bootstrap_form signup_form layout='inline'%}
+                          <button type="submit" class="btn btn-outline-success btn-sm">Sign Up</button>
+                      </form>
+                  </div>
+                </div>
+
+
+            </p>
+          </div>
+        </div>
     </div>
   </div>
 
-  </div>
-</div>
 {% endblock %}
 
 

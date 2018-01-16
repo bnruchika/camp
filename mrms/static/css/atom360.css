@@ -14,6 +14,9 @@
    }
 
 /* Radiology specific css */
+body {
+    font-size: 14px;
+}
 .front-indicator {
 	width: 96%;
 	margin: 5px 32px 15px 32px;
@@ -72,10 +75,10 @@ div.seatCharts-seat.unav navbar-nav ml-autoailable {
     color: #ffffff;
 }
 nav{
-  font-size: 18px;
+  font-size: 17.5px;
 }
 .navbar{
-  height: 65px;
+  height: 45px;
 }
 strong{
   font-size: 20px;
@@ -87,7 +90,7 @@ strong{
   font-size: 17px;
 }
 .card-body{
-  font-size: 18px;
+  font-size: 14px !important;
 }
 .dropdown-item{
   font-size: 15px;
@@ -95,7 +98,7 @@ strong{
 .nav-tabs{
   padding-top: 20px;
   padding-bottom: 20px;
-  font-size: 20px;
+  font-size: 17.5px;
   align-items: center;
   }
 
@@ -129,3 +132,12 @@ span.seatCharts-legendDescription {
 	overflow-x: none;
 	width: 170px;
 }
+
+.navbar-brand {
+    font-size: 17.5px;
+}
+
+.form-control::-webkit-input-placeholder { color: red; }
+.form-control::-moz-placeholder {
+    font-size: 13px!important;
+     }  /* Mozilla Firefox 19+ */

@@ -1,9 +1,13 @@
 {% extends 'base.html' %} {% load bootstrap4 %} {% block content %}
 <div class="container">
-<h2>Enter the following details to register.</h2>
-<form method="post" class="form form-horizontal">
-    {% csrf_token %} {% bootstrap_form form layout='inline'%}
-    <button type="submit" class="btn btn-primary">Save details</button>
-</form>
+    <div class="row">
+        <div class="col-offset-md-5 col-offset-lg-5 col-md-6 col-lg-6">
+            <h2>Registration</h2>
+            <form method="post" class="form form-horizontal">
+                {% csrf_token %} {% bootstrap_form form layout='inline'%}
+                <button type="submit" class="btn btn-primary">Save details</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

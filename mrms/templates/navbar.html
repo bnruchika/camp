@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Atom360</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#" style="font-weight:bolder; color:#0caf24">Atom360</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -33,17 +33,6 @@
                         <a class="dropdown-item" href=" {% url 'logout' %} ">Logout</a>
                     </div>
                 </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Clinic Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'base_registration' %}">Patient Registration</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Clinic Registration</a>
-                </li>
-
             {% endif %}
         </ul>
 

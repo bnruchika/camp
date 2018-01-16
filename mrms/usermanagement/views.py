@@ -60,7 +60,8 @@ def login_view(request):
                           {'form': form, 'error': error})
     else:
         form = LoginForm()
-        return render(request, 'usermanagement/login.html', {'form': form})
+        signup_form = SignUpForm()
+        return render(request, 'usermanagement/login.html', {'form': form,'signup_form':signup_form})
 
 
 @login_required

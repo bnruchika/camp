@@ -154,6 +154,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.live.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'me_the_3d@hotmail.com'
-EMAIL_HOST_PASSWORD = 'iamthe3dimension'
+EMAIL_HOST_PASSWORD = 'Password12345'
 DEFAULT_FROM_EMAIL = 'me_the_3d@hotmail.com'
 DEFAULT_TO_EMAIL = 'to email'

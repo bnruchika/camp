@@ -16,6 +16,7 @@ class LoginForm(AuthenticationForm):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
+                'style':'width:300px',
                 'name': 'username',
                 'placeholder': "Mobile number"
             }))
@@ -26,6 +27,7 @@ class LoginForm(AuthenticationForm):
             attrs={
                 'class': 'form-control',
                 'name': 'username',
+                'style':'width:300px',
                 'password': forms.PasswordInput(),
                 'placeholder': "Enter your password"
             }))
@@ -37,17 +39,26 @@ class SignUpForm(UserCreationForm):
         ('female', 'Female'),
         ('others', 'Others')
     )
+    fullname = forms.CharField(
+        label="Enter your full name",
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'style':'width:300px',
+                'class': 'form-control',
+                'name': 'username'}))
     username = forms.CharField(
         label="Mobile Number +91",
         max_length=30,
         widget=forms.TextInput(
             attrs={
+                'style':'width:300px',
                 'class': 'form-control',
                 'name': 'username'}))
     gender = forms.ChoiceField(
         label="Gender",
         choices=gender_choices,
-        widget=forms.Select,
+        widget=forms.RadioSelect,
     )
 
     dob = forms.DateField(
@@ -56,15 +67,17 @@ class SignUpForm(UserCreationForm):
             format=('%d/%m/%Y'),
             attrs={
                 'class': 'form-control datepicker',
-                'name': 'username',
+                'style':'width:300px',
+                'name': 'dob',
                 'placeholder': 'yyyy-mm-dd'}))
     fullname = forms.CharField(
         label="Enter your full name",
         max_length=30,
         widget=forms.TextInput(
             attrs={
+                'style':'width:300px',
                 'class': 'form-control',
-                'name': 'username'}))
+                'name': 'fullname'}))
 
     def clean(self):
         if len(self.cleaned_data.get('username')) != 10:
