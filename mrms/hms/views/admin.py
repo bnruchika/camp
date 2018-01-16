@@ -97,9 +97,12 @@ def costs(request):
             hospital_ref_id=hospital, component_type="optional")
         onetime_costs = BillingComponents.objects.filter(
             hospital_ref_id=hospital, component_type="onetime")
+        costs = BillingComponents.objects.filter(
+            hospital_ref_id=hospital)
         return render(request,
                       'hms/admin_billing.html',
                       {'mandatory_costs': mandatory_costs,
                        optional_costs: 'optional_costs',
                        "onetime_costs": onetime_costs,
+                       "costs": costs,
                        'billingform': billingform})

@@ -7,6 +7,13 @@
     <button type="submit" class="btn btn-primary">Invite</button>
 </form>
 
+
+<table class="datatable" class="display">
+    <thead>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 {% for invitation in invitations %}
     {{invitation.invite_user_reference.fullname}} -- {{invitation.is_invitation_notified}} -- {{invitation.is_user_logged_in}}
 {% endfor %}
