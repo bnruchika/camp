@@ -1,20 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="POST" class="form form-horizontal" action=".">
-    {% csrf_token %}
-    {{userinvitationform.as_p}}
-    <button type="submit" class="btn btn-primary">Invite</button>
-</form>
+<div class="row" style="margin-top:25px;">
+    <div class="col-md-9 col-lg-9">
+        <table class="datatable" class="display">
+            <thead>
+                <td> User </td>
+                <td> Is Invitation Email sent  </td>
+                <td> Has user logged in </td>
+            </thead>
+            <tbody>
+                {% for invitation in invitations %}
+                    <tr>
+                        <td> {{invitation.invite_user_reference.fullname}} </td>
+                        <td> {{invitation.is_invitation_notified}}</td>
+                        <td> {{invitation.is_user_logged_in}} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-3 col-lg-3">
+        <form method="POST" class="form form-horizontal" action=".">
+            {% csrf_token %}
+            {{userinvitationform.as_p}}
+            <button type="submit" class="btn btn-primary">Invite</button>
+        </form>
 
+    </div>
+</div>
 
-<table class="datatable" class="display">
-    <thead>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-{% for invitation in invitations %}
-    {{invitation.invite_user_reference.fullname}} -- {{invitation.is_invitation_notified}} -- {{invitation.is_user_logged_in}}
-{% endfor %}
 {% endblock %}
