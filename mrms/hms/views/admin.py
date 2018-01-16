@@ -9,16 +9,16 @@ from django.core.mail import send_mail
 from hms.forms import BillingCreationUpdationForm, UserInvitationForm
 from hms.models import BillingComponents, Hospital, Invitations,HospitalUserRole
 from usermanagement.models import User
-
+from usermanagement.decorators import is_related_to_hospital
 # TODO: Need to
 
 
 @login_required
+@is_related_to_hospital
 def invite(request):
     #TODO: Currently three is no way to figure out which user belongs to which hospital
     # So using the default hospital
     hospital = Hospital.objects.get(id=1)
-
     if request.method =="POST":
         userinvitationform = UserInvitationForm(request.POST)
         if userinvitationform.is_valid():
@@ -34,7 +34,8 @@ def invite(request):
             except ObjectDoesNotExist:
                 user = User.objects.create(username=mobile_number,gender=gender,email=email, fullname=name)
                 user.set_password("password")
-                user.is_doctor = True
+                if role == "doctor":
+                    user.is_doctor = True
                 user.save()
             # Now create an invitation to be sent out
             invitation = Invitations.objects.create(
@@ -70,6 +71,7 @@ def invite(request):
 
 
 @login_required
+@is_related_to_hospital
 def costs(request):
     hospital = Hospital.objects.get(id=1)
     if request.method == "POST":

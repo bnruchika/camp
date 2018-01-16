@@ -14,7 +14,8 @@ from usermanagement.decorators import doctor_profile_validated
 
 from phr.models import PatientAllergies, PatientEvents, PatientSymptoms, PatientMedicines, DCMImages, PatientDiseases, PatientTests
 from hms.models import Hospital, DepartmentsInHospital, Department
-# Create your views here.
+from usermanagement.decorators import is_related_to_hospital
+
 
 
 def handle_uploaded_file(f, name):
@@ -24,6 +25,7 @@ def handle_uploaded_file(f, name):
 
 
 @login_required
+@is_related_to_hospital
 @doctor_profile_validated
 def find_patient(request):
     if request.method == "POST":
@@ -41,6 +43,7 @@ def find_patient(request):
 
 
 @login_required
+@is_related_to_hospital
 @doctor_profile_validated
 def event_details(request, username, event_id=None):
     return_dict = {}
@@ -99,6 +102,7 @@ def event_details(request, username, event_id=None):
 
 @require_http_methods(["POST"])
 @login_required
+@is_related_to_hospital
 @doctor_profile_validated
 def update_patient_symptoms(request):
     event_id = request.POST.get("event_id")
@@ -115,6 +119,7 @@ def update_patient_symptoms(request):
             {"error": "Event Not Created. Register Patient First ?"}, status=500)
 @require_http_methods(["POST"])
 @login_required
+@is_related_to_hospital
 @doctor_profile_validated
 def update_patient_tests(request):
     event_id = request.POST.get("event_id")
@@ -138,7 +143,8 @@ def update_patient_tests(request):
 
 @require_http_methods(["POST"])
 @login_required
-#@doctor_profile_validated
+@is_related_to_hospital
+@doctor_profile_validated
 def update_patient_diseases(request):
     event_id = request.POST.get("event_id")
     if event_id:
@@ -155,6 +161,7 @@ def update_patient_diseases(request):
 
 @require_http_methods(["POST"])
 @login_required
+@is_related_to_hospital
 @doctor_profile_validated
 def update_patient_medicines(request):
     event_id = request.POST.get("event_id")
@@ -206,6 +213,8 @@ def upload_dcm_image(request):
 
 
 @login_required
+@is_related_to_hospital
+@doctor_profile_validated
 def close_event(request):
     event_id = request.POST.get("event_id")
     event = PatientEvents.objects.get(id=event_id)
