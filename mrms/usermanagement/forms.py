@@ -70,7 +70,6 @@ class SignUpForm(UserCreationForm):
         if len(self.cleaned_data.get('username')) != 10:
             raise forms.ValidationError(
                 "Mobile Number cannot be less than 10 digits")
-        print(self.cleaned_data)
         return self.cleaned_data
 
     class Meta(UserCreationForm.Meta):
