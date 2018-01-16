@@ -180,9 +180,9 @@
      Recommended Tests
         {% with event.tests.doctor_reported_tests|split:"," as tests %}
         <ul id="patient_tests">
-            {% for test in tests %}
+            {% for test in event.tests.all %}
                 {% if test %}
-                    <li>{{test}}</li>
+                    <li>{{test.doctor_reported_tests}} -- {{test.test_date}}</li>
                 {% endif %}
             {% endfor %}
         </ul>

@@ -1,4 +1,4 @@
-{%load static%} {% include 'base.html'%} {% block content %} {% if error %} {{error}} {% endif %}
+{%load static%} {% include 'base.html'%} {% block content %}
 <div class="container">
   <div clas="row">
 <form method="POST" action="{% url 'find_patient'%}">
@@ -43,8 +43,8 @@
 
 {% elif error %}
 
-<div class="alert alert-primary" role="alert">
-  This is a primary alert—check it out!
+<div class="alert alert-danger" role="alert">
+  {{error}}
 </div>
 
 {% endif %} {% endblock %} {%block pagescss%}

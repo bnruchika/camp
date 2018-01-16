@@ -29,11 +29,10 @@ def find_patient(request):
     if request.method == "POST":
         # make a post to ehr here.
         username = request.POST.get("mobile_number")
-        patient = User.objects.get(username=username)
-        # TODO : Handle other cases
-        if patient:
+        try:
+            patient = User.objects.get(username=username)
             return render(request, "find_patient.html", {'patient': patient})
-        else:
+        except ObjectDoesNotExist:
             return render(
                 request, "find_patient.html", {
                     'error': "Patient with this mobile number not found"})
@@ -78,12 +77,6 @@ def event_details(request, username, event_id=None):
             symptoms.save()
             diseases = PatientDiseases.objects.create(patient_diseases="",user = return_dict["patient"])
             diseases.save()
-            tests = PatientTests.objects.create(
-                doctor_reported_tests="", 
-                user=return_dict['patient'],
-                test_date = datetime.datetime.today()
-                )
-            tests.save()
 
             event = PatientEvents.objects.create(
                 user=return_dict['patient'],
@@ -92,13 +85,11 @@ def event_details(request, username, event_id=None):
                 doctor_id=User.objects.get(username=request.user.username),
                 schedule_date=datetime.date.today(),
                 symptoms=symptoms,
-                tests=tests,
                 diseases=diseases,
                 is_open=True
             )
             event.save()
-            event.tests.add(tests)
-            event.save()
+
             return_dict["event"] = event
 
     history = PatientEvents.objects.filter(user=request.user)
@@ -130,12 +121,17 @@ def update_patient_tests(request):
     event_id = request.POST.get("event_id")
     if event_id:
         event = PatientEvents.objects.get(id=event_id)
-        tests = PatientTests.objects.get(id=event.tests.id)
-        tests.doctor_reported_tests = tests.doctor_reported_tests + \
-            "," + request.POST.get("doctor_reported_tests")
+        user = event.user
+        tests = PatientTests.objects.create(
+            doctor_reported_tests=request.POST.get("doctor_reported_tests"),
+            user=user,
+            test_date = datetime.datetime.today()
+            )
         tests.save()
+        event.tests.add(tests)
+        event.save()
         return JsonResponse(
-            {"tests": event.tests.doctor_reported_tests}, status=201)
+            {"test_name": tests.doctor_reported_tests,"test_date":tests.test_date}, status=201)
     else:
         return JsonResponse(
             {"error": "Event Not Created. Register Patient First ?"}, status=500)

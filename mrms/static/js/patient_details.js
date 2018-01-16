@@ -42,7 +42,7 @@
               $("#patient_diseases").val("")
           },
           error: function(data) {
-              alert("error")	
+              alert("error")
 	     console.log(data)
           }
       })
@@ -59,7 +59,8 @@
           },
           dataType: 'json',
           success: function(data) {
-              $("#patient_tests").append("<li>"+test+"</li>")
+              console.log(data)
+              $("#patient_tests").append("<li>"+data.test_name+"--"+data.test_date+"</li>")
               $("#doctor_reported_tests").val("")
           },
           error: function(data) {

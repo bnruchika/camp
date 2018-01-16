@@ -18,7 +18,7 @@ def doctor_profile_validated(function):
             else:
                 # Not a doctor, so dont matter.
                 return function(request, *args, **kwargs)
-        except ObjectDoesNotExist:
-            return HttpResponseRedirect("/user/profile/")
+        except ObjectDoesNotExist as e:
+            return HttpResponseRedirect("/auth/register/")
 
     return check_doctor_valid_data
