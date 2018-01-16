@@ -74,6 +74,9 @@ div.seatCharts-seat.unav navbar-nav ml-autoailable {
 nav{
   font-size: 18px;
 }
+.navbar{
+  height: 65px;
+}
 strong{
   font-size: 20px;
 }
