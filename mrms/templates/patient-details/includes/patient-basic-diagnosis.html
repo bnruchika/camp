@@ -1,6 +1,6 @@
 {%load utilities%}
 <div class="row">
-    <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4"> <strong>Diagnosing {{patient.fullname}} , {{patient.gender|title}} aged {{patient.dob|age_calculator}} years.</strong> </div>
+    <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4"> Diagnosing {{patient.fullname}} , {{patient.gender|title}} aged {{patient.dob|age_calculator}} years. </div>
 </div>
 
 <div class="row">
@@ -85,7 +85,7 @@
 
                     <div class="col-sm-4">
                         <div class="form">
-                            <strong>When </strong>
+                            <span class="title-font">When </span>
                             <div class="checkbox">
                                 <label>
                                  <input type="checkbox" value="morning" id="morning"> Morning
@@ -93,21 +93,21 @@
                             </div>
                             <div class="checkbox">
                                 <label>
-                 <input type="checkbox" value="afternoon" id="afternoon">Afternoon
-               </label>
+                                 <input type="checkbox" value="afternoon" id="afternoon">Afternoon
+                               </label>
                             </div>
 
                             <div class="checkbox">
                                 <label>
-                 <input type="checkbox" value="night" id="night"> Night
-               </label>
+                                 <input type="checkbox" value="night" id="night"> Night
+                               </label>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-sm-3">
                         <div class="form">
-                            <strong> Food </strong>
+                            <span class="title-font">Food </span>
                             <div class="checkbox">
                                 <label>
                  <input type="radio" name="food" value="(A)"> After

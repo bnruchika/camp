@@ -1,23 +1,22 @@
 {%load static%} {% include 'base.html'%} {% block content %}
 <div class="container">
   <div clas="row">
-<form method="POST" action="{% url 'find_patient'%}">
+    <form method="POST" action="{% url 'find_patient'%}">
+        <div class="find-patient is-responsive">
+            {% csrf_token %}
+            <div style="margin-top: 20%;" class="form-group">
+                <h3 class="text-center">Enter patient's Mobile Number</h3>
+                <label class="sr-only" for="username">Username</label>
+                <div class="input-group">
 
-    <div class="find-patient is-responsive">
-        {% csrf_token %}
-        <div style="margin-top: 20%;" class="form-group">
-            <h3>Enter patient's UserID or Mobile Number.</h3>
-            <label class="sr-only" for="username">Username</label>
-            <div class="input-group">
-
-                <input type="text" name="mobile_number" class="form-control" value="{{username}}" id="username" placeholder="Mobile number">
+                    <input type="text" name="mobile_number" class="form-control" value="{{username}}" id="username" placeholder="Mobile number">
+                </div>
             </div>
-        </div>
-        <div class="form-group form-control-md mx-sm-5">
-            <button type="submit" class="btn btn-primary"> Find Patient </button>
-        </div>
-</form>
-</div>
+            <div class="form-group form-control-md mx-sm-5">
+                <button type="submit" class="btn btn-outline-success" style="margin-left:35%"> Find Patient </button>
+            </div>
+    </form>
+  </div>
 </div>
 {% if patient %}
 <div class="card">

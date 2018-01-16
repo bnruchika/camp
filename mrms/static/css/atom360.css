@@ -1,3 +1,16 @@
+@font-face {
+    font-family: 'Sansation';
+    src: url('/static/fonts/sansation/Sansation-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'worksans';
+    src: url('/static/fonts/work-sans/WorkSans-Regular.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @media (min-width: 576px) {
   .find-patient {
     margin: auto;
@@ -16,6 +29,7 @@
 /* Radiology specific css */
 body {
     font-size: 14px;
+    font-family: "worksans";
 }
 .front-indicator {
 	width: 96%;
@@ -76,9 +90,10 @@ div.seatCharts-seat.unav navbar-nav ml-autoailable {
 }
 nav{
   font-size: 17.5px;
+  font-family: Sansation
 }
 .navbar{
-  height: 45px;
+  height: 50px;
 }
 strong{
   font-size: 20px;
@@ -141,3 +156,15 @@ span.seatCharts-legendDescription {
 .form-control::-moz-placeholder {
     font-size: 13px!important;
      }  /* Mozilla Firefox 19+ */
+
+.title-font{
+    font-family: "Sansation"
+}
+.content-font {
+    font-family: "worksans"
+}
+
+.btn {
+    font-family: "Sansation";
+    text-transform: capitalize;
+}
