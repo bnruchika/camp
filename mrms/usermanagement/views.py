@@ -24,6 +24,7 @@ def register(request):
             # Update the user's fullname here
             user = User.objects.get(username=username)
             user.fullname = request.POST.get("fullname")
+            user.gender = request.POST.get('gender')
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)

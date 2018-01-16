@@ -45,7 +45,7 @@ def find_patient(request):
 def event_details(request, username, event_id=None):
     return_dict = {}
     try:
-        patient = User.objects.get(username=request.user.username)
+        patient = User.objects.get(username=username)
         return_dict["patient"] = patient
     except ObjectDoesNotExist:
         raise Exception("Patient Not Found")
@@ -91,8 +91,7 @@ def event_details(request, username, event_id=None):
             event.save()
 
             return_dict["event"] = event
-
-    history = PatientEvents.objects.filter(user=request.user)
+    history = PatientEvents.objects.filter(user=return_dict['patient'])
     return_dict["history"] = history
     return render(
         request, "patient_details.html", return_dict)
