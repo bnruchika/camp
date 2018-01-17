@@ -31,6 +31,23 @@ body {
     font-size: 14px;
     font-family: "worksans";
 }
+.radio{
+  display: inline;
+  margin-top: 20px;
+}
+.radio label{
+  margin-bottom: 0px;
+  }
+  input.radio{
+    width: auto;
+  }
+  .form-control{
+    margin-right: 25px;
+  }
+  #id_password1, #id_password2{
+    width: 300px;
+  }
+
 .front-indicator {
 	width: 96%;
 	margin: 5px 32px 15px 32px;
@@ -99,7 +116,7 @@ strong{
   font-size: 20px;
 }
 .card{
-  margin-top: 15px;
+  margin-top: 25px;
 }
 .row{
   font-size: 17px;
