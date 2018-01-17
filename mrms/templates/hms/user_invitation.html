@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row" style="margin-top:25px;">
+<div class="row">
+  <!-- left -->
+  <div id="left" class="col-md-3 col-lg-3">
+      <form method="POST" class="form form-horizontal" action=".">
+          {% csrf_token %}
+          {{userinvitationform.as_p}}
+          <button type="submit" class="btn btn-outline-success">Invite</button>
+      </form>
+</div>
+  <!--right  -->
     <div class="col-md-9 col-lg-9">
-        <table class="datatable" class="display">
+      <h3 class="card-title">Invite Users</h3>
+      <div class="card-right card border-success mb-3">
+        <table width="100%" cellspacing="0" class="datatable display table">
             <thead>
                 <td> User </td>
                 <td> Is Invitation Email sent  </td>
@@ -19,15 +30,9 @@
                 {% endfor %}
             </tbody>
         </table>
+      </div>
     </div>
-    <div class="col-md-3 col-lg-3">
-        <form method="POST" class="form form-horizontal" action=".">
-            {% csrf_token %}
-            {{userinvitationform.as_p}}
-            <button type="submit" class="btn btn-primary">Invite</button>
-        </form>
 
-    </div>
 </div>
 
 {% endblock %}

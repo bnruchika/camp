@@ -5,6 +5,24 @@ from usermanagement.models import User
 
 class BillingCreationUpdationForm(forms.ModelForm):
 
+    billing_component = forms.CharField(
+        label="What is the cost about?",
+        max_length=30,
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'placeholder':'Eg : Consultation Cost or Blood Test or Cheamothearphy',
+                'rows':'4',
+                'name': 'username'}))
+    component_cost = forms.CharField(
+        label="How much will it cost?",
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type':'number',
+                'placeholder':'In rupees ',
+                'name': 'username'}))
     class Meta:
         model = BillingComponents
         exclude = [

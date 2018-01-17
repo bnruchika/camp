@@ -2,9 +2,22 @@
  {% load bootstrap4 %}
 
 {% block content %}
-<div class="row" style="margin-top:25px;">
+<div class="row">
+  <!-- leftside -->
+  <div id="left" class="col-md-3 col-lg-3">
+      <form method="POST" action=".">
+          {% csrf_token %}
+          {% bootstrap_form billingform %}
+          {% buttons %}
+              <button type="submit" class="btn btn-outline-success">Add Cost</button>
+          {% endbuttons %}
+      </form>
+  </div>
+  <!-- rightside -->
     <div class="col-md-9 col-lg-9">
-        <table class="datatable" class="display">
+      <h3 class="card-title">Costs Management</h3>
+        <div class="card-right card border-success mb-3">
+        <table width="100%" cellspacing="0" class="datatable display table">
             <thead>
                 <td> Billing Component </td>
                 <td> Billing Type </td>
@@ -22,23 +35,17 @@
                            {% csrf_token %}
                            <input type="text" style="display:none" value="{{cost.id}}" name="cost_id" />
                            <input type="text" style="display:none" value="delete" name="action" />
-                           <button class="btn btn-danger">Delete</button>
+                           <button class="btn btn-outline-danger ">Delete</button>
                        </form>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+      </div>
     </div>
-    <div class="col-md-3 col-lg-3">
-        <form method="POST" action=".">
-            {% csrf_token %}
-            {% bootstrap_form billingform %}
-            {% buttons %}
-                <button type="submit" class="btn btn-primary">Add Cost</button>
-            {% endbuttons %}
-        </form>
-    </div>
+
+    <!--row end -->
 </div>
 
 {% endblock %}

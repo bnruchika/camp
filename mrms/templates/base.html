@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Atom360">
+
     <title>Atom360 MRMS</title>
 </head>
 {% load static %}
@@ -15,8 +16,8 @@
 <link href="{% static "/css/bootstrap_override.css"%}" rel="stylesheet">
 <link href="{% static "/css/bootstrap-datepicker.min.css"%}" rel="stylesheet">
 <link href="{% static "/css/jquery.seat-charts.css"%}" rel="stylesheet">
-<link href="{% static "/css/jquery.dataTables.min.css"%}" rel="stylesheet">
 <link href="{% static "/css/atom360.css"%}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/kt-2.3.2/r-2.2.1/sc-1.4.3/datatables.min.css"/>
 
 <body>
     {% include 'navbar.html' %}
@@ -26,7 +27,8 @@
 </body>
 <script src="{% static "/js/bootstrap-datepicker.min.js"%}"></script>
 <script src="{% static "/js/jquery.seat-charts.min.js"%}"></script>
-<script src="{% static "/js/jquery.dataTables.min.js"%}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/kt-2.3.2/r-2.2.1/sc-1.4.3/datatables.min.js"></script>
+
 
 <script>
     $('.datepicker-today').datepicker({
@@ -44,7 +46,7 @@
     $('.datetimepicker').datepicker({
         format: 'mm/dd/yyyy',
     });
-    $('.datatable').DataTable();
+    $('.datatable').DataTable({"bLengthChange": false, "responsive": true});
 </script>
 {% block script%} {% endblock %} {%block pagescss%} {% endblock %}
 
