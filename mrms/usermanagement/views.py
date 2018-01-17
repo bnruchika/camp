@@ -39,6 +39,7 @@ def register(request):
 
 
 def login_view(request):
+    signup_form = SignUpForm()
     if request.method == 'POST':
         # Gather the username and password provided by the user.
         # This information is obtained from the login form.
@@ -57,10 +58,9 @@ def login_view(request):
             form = LoginForm()
             error = "User not found"
             return render(request, 'usermanagement/login.html',
-                          {'form': form, 'error': error})
+                          {'form': form, 'error': error,'signup_form':signup_form})
     else:
         form = LoginForm()
-        signup_form = SignUpForm()
         return render(request, 'usermanagement/login.html', {'form': form,'signup_form':signup_form})
 
 
