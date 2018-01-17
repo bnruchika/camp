@@ -152,11 +152,6 @@ span.seatCharts-legendDescription {
     font-size: 17.5px;
 }
 
-.form-control::-webkit-input-placeholder { color: red; }
-.form-control::-moz-placeholder {
-    font-size: 13px!important;
-     }  /* Mozilla Firefox 19+ */
-
 .title-font{
     font-family: "Sansation"
 }
