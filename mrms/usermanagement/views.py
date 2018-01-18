@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse
 
 from usermanagement.forms import SignUpForm, LoginForm, DoctorProfileForm
 from usermanagement.models import User
+from usermanagement.decorators import validate_user_role_permission
 
 # TODO : All screens are now assuming the doctor is the one logged in. Need to re-drect based on roles.
 # TODO: Need to make forgot password and delete account working
@@ -65,6 +66,7 @@ def login_view(request):
 
 
 @login_required
+@validate_user_role_permission('doctor')
 def profile(request):
     if request.method == "POST":
         user = User.objects.get(username=request.user.username)

@@ -1,25 +1,21 @@
 from django.shortcuts import render
-from django.contrib.auth import login, authenticate
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 
 from hms.forms import BillingCreationUpdationForm, UserInvitationForm
-from hms.models import BillingComponents, Hospital, Invitations,HospitalUserRole
+from hms.models import BillingComponents, Hospital, Invitations
 from usermanagement.models import User
-from mrms.utilities import is_hospital_admin
-from usermanagement.decorators import  validate_user_role_permission
+from usermanagement.decorators import validate_user_role_permission
+
 
 @login_required
 @validate_user_role_permission('hospital_admin')
 def invite(request):
-    user_role = is_hospital_admin(request)
-    if not user_role:
-        raise PermissionDenied
 
-    #TODO: Currently three is no way to figure out which user belongs to which hospital
+    # TODO: Currently three is no way to figure out which user belongs to which hospital
     # So using the default hospital
     hospital = Hospital.objects.get(id=1)
     if request.method =="POST":
@@ -55,6 +51,9 @@ def invite(request):
                 [user.email],
                 fail_silently=False,
             )
+            invitation.is_invitation_notified = True
+            invitation.save()
+
             # Assign the role for the user in the hospital
             hospitalrole = HospitalUserRole.objects.create(
                 hospital_reference=hospital,
@@ -76,10 +75,6 @@ def invite(request):
 @login_required
 @validate_user_role_permission('accounts_admin')
 def costs(request):
-    user_role = is_hospital_admin(request)
-    if not user_role:
-        raise PermissionDenied
-
     hospital = Hospital.objects.get(id=1)
     if request.method == "POST":
         if request.POST.get("action") == "delete":

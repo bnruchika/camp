@@ -42,13 +42,15 @@ def validate_user_role_permission(user_role):
             hospital = Hospital.objects.get(id=1)
             user = User.objects.get(username=request.user.username)
             roles = HospitalUserRole.objects.filter(user_reference=user, hospital_reference=hospital)
-            print(len(roles))
+            access_granted = False
             if len(roles) > 0:
                 for role in roles:
                     if role.role == user_role:
-                        return view_method(request, *args, **kwargs)
-                    else:
-                        raise PermissionDenied("Your current role does not have permission to do this operation in %s. Please contact the admin for access."%hospital.hospital_name)
+                        access_granted = True
+                if access_granted:
+                    return view_method(request, *args, **kwargs)
+                else:
+                    raise PermissionDenied("Your current role does not have permission to do this operation in %s. Please contact the admin for access."%hospital.hospital_name)
             else:
                 raise PermissionDenied("You dont have access to do any operation in %s"%hospital.hospital_name)
         return _arguments_wrapper

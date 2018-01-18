@@ -126,6 +126,9 @@ class HospitalUserRole(DateTimeModel):
     user_reference = models.ForeignKey(User, related_name="hospital_user_role_user_id")
     role = models.CharField(max_length=20, choices=role_choices)
 
+    def __str__(self):
+        return "%s - %s - %s"%(self.hospital_reference, self.user_reference, self.role)
+
 class Invitations(DateTimeModel):
 
     invite_user_reference = models.ForeignKey(User, on_delete=models.CASCADE)
