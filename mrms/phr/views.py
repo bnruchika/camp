@@ -10,11 +10,10 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 
 from usermanagement.models import User
-from usermanagement.decorators import doctor_profile_validated
+from usermanagement.decorators import doctor_profile_validated, validate_user_role_permission
 
 from phr.models import PatientAllergies, PatientEvents, PatientSymptoms, PatientMedicines, DCMImages, PatientDiseases, PatientTests
 from hms.models import Hospital, DepartmentsInHospital, Department
-from mrms.utilities import get_user_role_entity, is_hospital_admin, is_hospital_doctor
 
 
 
@@ -25,11 +24,9 @@ def handle_uploaded_file(f, name):
 
 
 @login_required
+@validate_user_role_permission('doctor')
 @doctor_profile_validated
 def find_patient(request):
-    user_role = is_hospital_doctor(request)
-    if not user_role:
-        raise PermissionDenied
     if request.method == "POST":
         # make a post to ehr here.
         username = request.POST.get("mobile_number")
@@ -45,12 +42,9 @@ def find_patient(request):
 
 
 @login_required
+@validate_user_role_permission('doctor')
 @doctor_profile_validated
 def event_details(request, username, event_id=None):
-    user_role = is_hospital_doctor(request)
-    if not user_role:
-        raise PermissionDenied
-
     return_dict = {}
     try:
         patient = User.objects.get(username=username)
@@ -107,12 +101,9 @@ def event_details(request, username, event_id=None):
 
 @require_http_methods(["POST"])
 @login_required
+@validate_user_role_permission('doctor')
 @doctor_profile_validated
 def update_patient_symptoms(request):
-    user_role = is_hospital_doctor(request)
-    if not user_role:
-        raise PermissionDenied
-
     event_id = request.POST.get("event_id")
     if event_id:
         event = PatientEvents.objects.get(id=event_id)
@@ -127,11 +118,9 @@ def update_patient_symptoms(request):
             {"error": "Event Not Created. Register Patient First ?"}, status=500)
 @require_http_methods(["POST"])
 @login_required
+@validate_user_role_permission('doctor')
 @doctor_profile_validated
 def update_patient_tests(request):
-    user_role = is_hospital_doctor(request)
-    if not user_role:
-        raise PermissionDenied
     event_id = request.POST.get("event_id")
     if event_id:
         event = PatientEvents.objects.get(id=event_id)
@@ -153,11 +142,9 @@ def update_patient_tests(request):
 
 @require_http_methods(["POST"])
 @login_required
+@validate_user_role_permission('doctor')
 @doctor_profile_validated
 def update_patient_diseases(request):
-    user_role = is_hospital_doctor(request)
-    if not user_role:
-        raise PermissionDenied
     event_id = request.POST.get("event_id")
     if event_id:
         event = PatientEvents.objects.get(id=event_id)
@@ -173,11 +160,9 @@ def update_patient_diseases(request):
 
 @require_http_methods(["POST"])
 @login_required
+@validate_user_role_permission('doctor')
 @doctor_profile_validated
 def update_patient_medicines(request):
-    user_role = is_hospital_doctor(request)
-    if not user_role:
-        raise PermissionDenied
     event_id = request.POST.get("event_id")
     if event_id:
         event = PatientEvents.objects.get(id=event_id)
@@ -227,11 +212,9 @@ def upload_dcm_image(request):
 
 
 @login_required
+@validate_user_role_permission('doctor')
 @doctor_profile_validated
 def close_event(request):
-    user_role = is_hospital_doctor(request)
-    if not user_role:
-        raise PermissionDenied
     event_id = request.POST.get("event_id")
     event = PatientEvents.objects.get(id=event_id)
     event.is_open = False

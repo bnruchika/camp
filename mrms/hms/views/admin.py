@@ -10,8 +10,10 @@ from hms.forms import BillingCreationUpdationForm, UserInvitationForm
 from hms.models import BillingComponents, Hospital, Invitations,HospitalUserRole
 from usermanagement.models import User
 from mrms.utilities import is_hospital_admin
+from usermanagement.decorators import  validate_user_role_permission
 
 @login_required
+@validate_user_role_permission('hospital_admin')
 def invite(request):
     user_role = is_hospital_admin(request)
     if not user_role:
@@ -72,6 +74,7 @@ def invite(request):
 
 
 @login_required
+@validate_user_role_permission('accounts_admin')
 def costs(request):
     user_role = is_hospital_admin(request)
     if not user_role:
