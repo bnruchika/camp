@@ -1,6 +1,7 @@
 {%load utilities%}
 <div class="row">
-    <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4"> Diagnosing {{patient.fullname}} , {{patient.gender|title}} aged {{patient.dob|age_calculator}} years. </div>
+    <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4" id="diag-heading">
+       Diagnosing {{patient.fullname}}, {{patient.gender|title}} aged {{patient.dob|age_calculator}} years. </div>
 </div>
 
 <div class="row">
@@ -8,8 +9,8 @@
         &nbsp;
     </div>
     <div class="col-md-4 col-lg-4">
-        <div class="card border-primary">
-            <h3 class="card-header">Symptoms</h3>
+        <div class="card border-success diag-card">
+            <h4 class="card-header">Symptoms</h4>
             <div class="card-body">
                 <input type="text" id="doctor_reported_symptoms" class="form-control" placeholder="Enter Symptoms here and hit enter">
             </div>
@@ -17,8 +18,9 @@
         <!-- Card -->
     </div>
 
-    <div class="col-md-6 col-lg-6">
-        Previously Recorded Symptoms
+
+    <div id="diag-card-1" class="card col-md-6 col-lg-7 diag-card-right">
+        <h4>Previously Recorded Symptoms</h4>
         {% with event.symptoms.doctor_reported_symptoms|split:"," as symptoms %}
         <ul id="patient_symptoms">
             {% for symptom in symptoms %}
@@ -28,8 +30,8 @@
             {% endfor %}
         </ul>
         {% endwith %}
-
     </div>
+    <!-- row end -->
 </div>
 
 <div class="row">
@@ -37,15 +39,15 @@
         &nbsp;
     </div>
     <div class="col-md-4 col-lg-4">
-        <div class="card border-primary">
-            <h3 class="card-header">Disease Prediction</h3>
+        <div class="card border-success diag-card">
+            <h4 class="card-header">Disease Prediction</h4>
             <div class="card-body">
                 <input type="text" id="patient_diseases" class="form-control" placeholder="Enter Diseases here and hit Enter">
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-6">
-        Diseases
+    <div class="card col-md-6 col-lg-7 diag-card-right">
+        <h4>Diseases</h4>
         {% with event.diseases.patient_diseases|split:"," as diseases %}
         <ul id="update_diseases">
             {% for disease in diseases %}
@@ -65,8 +67,8 @@
         &nbsp;
     </div>
     <div class="col-md-4 col-lg-4">
-        <div class="card border-primary">
-            <h3 class="card-header">Medicines</h3>
+        <div class="card border-success diag-card">
+            <h4 class="card-header">Medicines</h4>
             <div class="card-body">
 
                 <div class="row">
@@ -133,7 +135,7 @@
             <!-- Card -->
         </div>
     </div>
-    <div class="col-md-6 col-lg-6">
+    <div class="card col-md-6 col-lg-7 diag-card-right">
         <table class="table" id="medicine_list">
             <thead>
                 <tr>
@@ -169,15 +171,15 @@
         &nbsp;
     </div>
     <div class="col-md-4 col-lg-4">
-        <div class="card border-primary">
-            <h3 class="card-header">Tests</h3>
+        <div class="card border-success diag-card">
+            <h4 class="card-header">Tests</h4>
             <div class="card-body">
                 <input type="text" id="doctor_reported_tests" class="form-control" placeholder="Enter Test name and hit enter">
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-6">
-     Recommended Tests
+    <div class="card col-md-6 col-lg-7 diag-card-right">
+     <h4>Recommended Tests</h4>
         {% with event.tests.doctor_reported_tests|split:"," as tests %}
         <ul id="patient_tests">
             {% for test in event.tests.all %}
@@ -198,7 +200,7 @@
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="card border-primary">
-                <h3 class="card-header">Upload DCM Images</h3>
+                <h4 class="card-header">Upload DCM Images</h4>
                 <div class="card-body">
                     <input type="hidden" name="event_id" value="{{event.id}}">
                     <input type="hidden" name="patient_id" value="{{event.user.username}}">
@@ -225,5 +227,5 @@
 <form method="POST" action="/patient/close_event/">
     <input type="hidden" name="event_id" value="{{event.id}}">
     {% csrf_token %}
-    <button style="margin-top: 10px;" class="btn btn-Priamry" type="submit">Close Issue </button>
+    <button style="margin-top: 18px; margin-left: 30px; color: green" class="btn large" type="submit">Close Issue </button>
 </form>

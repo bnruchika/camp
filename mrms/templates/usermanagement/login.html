@@ -1,26 +1,30 @@
 {% extends 'base.html' %} {% load bootstrap4 %} {% block title %}Patient Login{% endblock %} {% block content %}
 <div class="container">
 
-  <div class="row">
-    <div class="col-md-9 col-xl-9 col-lg-9">
-    </div>
+<div class="row">
+    <div class="col-md-9 col-xl-9 col-lg-9"></div>
 
   <div class="col-md-3 col-lg-3 col-sm-12 col-xl-3">
-      <div class="card card border-success mb-3" style="width:23rem;padding-left:20px;padding-right:20px padding-top:-50p; margin-top: 40px;">
+      <div class="card card border-success mb-3"
+      style="width:23rem;padding-left:20px;padding-right:20px padding-top:-50p; margin-top: 40px;">
           <div class="card-block">
-            <p class="card-text">
-                <!-- Nav tabs -->
+          <p class="card-text">
+          <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist" style="font-size:14px">
                   <li class="nav-item">
-                    <a class="nav-link active text-left" data-toggle="tab" href="#login" role="tab">Login</a>
+                    <a  @click="show = !show" class="nav-link active text-left" data-toggle="tab" href="#login" role="tab">Login</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-left" data-toggle="tab" href="#register" role="tab">Register</a>
+                    <a @click="show = !show" class="nav-link text-left" data-toggle="tab" href="#register" role="tab">Register</a>
                   </li>
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="login" role="tabpanel">
-                      <form method="post" class="form form-horizontal" action="/auth/login/">
+                    <transition
+                        name="custom-classes-transition"
+                        enter-active-class="animated tada"
+                        leave-active-class="animated bounceOutRight">
+                      <form v-if="show" method="post" class="form form-horizontal" action="/auth/login/">
                           {% csrf_token %} {% bootstrap_form form layout='inline'%} {% buttons %}
                           <button type="submit" class="btn btn-outline-success btn-sm">
                                Login
@@ -28,6 +32,7 @@
 
                           {% endbuttons %}
                       </form>
+                    </transition>
                   </div>
                   <div class="tab-pane" id="register" role="tabpanel">
                       <form method="post" class="form form-horizontal" action="/auth/register/">

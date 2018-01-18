@@ -11,7 +11,7 @@
     font-style: normal;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 380px) {
   .find-patient {
     margin: auto;
     position: absolute;
@@ -108,6 +108,15 @@ strong{
 .row{
   font-size: 17px;
 }
+label{
+  margin: 0px;
+}
+#diag-heading{
+  color: #0caf24;
+  font-family:"Sansation";
+  font-weight: bold;
+  font-size: 20px;
+}
 nav{
   font-size: 17.5px;
   font-family: Sansation
@@ -116,7 +125,7 @@ nav{
   height: 50px;
 }
 .nav-tabs{
-  padding-top: 20px;
+  padding-top: 25px;
   padding-bottom: 20px;
   font-size: 17.5px;
   align-items: center;
@@ -130,10 +139,7 @@ nav{
   padding-top: 30px;
   background-color: #f9f9f9;
 }
-.navcard{
-  margin-top: 120px;
-  margin-bottom: 0px;
-}
+
 .card{
  border-radius: 0px;
  padding: 15px;
@@ -141,12 +147,27 @@ nav{
 .card-body{
   font-size: 14px !important;
 }
+.diag-card{
+  margin: 10px;
+}
+.diag-card-right{
+  padding: 20px 5px 20px 5px;
+  margin-top: 13px;
+  background-color: #faf9f9;
+}
+
 h3.card-title{
   font-family: "Sansation";
   color: #0caf24;
   padding: 10px;
   margin-bottom: 0px;
   margin-top: 15px;
+}
+.card-find{
+  margin-top:9px;
+}
+#view-link{
+  color: #0caf24;
 }
 /*card styles*/
 
@@ -186,10 +207,10 @@ span.seatCharts-legendDescription {
 }
 
 .title-font{
-    font-family: "Sansation"
+    font-family: "Sansation";
 }
 .content-font {
-    font-family: "worksans"
+    font-family: "worksans";
 }
 
 .btn {

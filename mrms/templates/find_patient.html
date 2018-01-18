@@ -19,7 +19,7 @@
   </div>
 </div>
 {% if patient %}
-<div class="card">
+<div class="card card-find">
   <div class="card-body">
     <h3 class="card-title">Patient Found</h3>
 <div class="row">
@@ -30,7 +30,7 @@
                     <td id="patient_name">{{patient.fullname|default_if_none:"Patient Name Unknown"}}</td>
                     <td id="patient_age"></td>
                     <td id="patient_username">{{patient.username}}</td>
-                    <td><a href="{% url 'event_details' username=patient.username %}">View Patient Details</a></td>
+                    <td><a id="view-link" href="{% url 'event_details' username=patient.username %}">View Patient Details<span class="glyphicon glyphicon-user"></span></a></td>
                 </tr>
             </tbody>
         </table>
