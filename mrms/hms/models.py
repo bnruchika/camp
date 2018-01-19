@@ -5,7 +5,7 @@ from django.db import models
 
 from mrms.models import DateTimeModel
 from usermanagement.models import User
-# Create your models here.
+
 
 
 class HospitalTypes(DateTimeModel):
@@ -100,9 +100,9 @@ class BillingComponents(DateTimeModel):
         ('onetime', 'OneTime Cost')
     )
     hospital_ref_id = models.ForeignKey(
-        Hospital, related_name="hospital_ref_id",default=1)
-    created_by = models.ForeignKey(User, related_name="created_by",default=1)
-    updated_by = models.ForeignKey(User, related_name='updated_by',default=1)
+        Hospital, related_name="hospital_ref_id",default=1,on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, related_name="created_by",default=1,on_delete=models.CASCADE)
+    updated_by = models.ForeignKey(User, related_name='updated_by',default=1,on_delete=models.CASCADE)
     billing_component = models.TextField(verbose_name="What is the cost about")
     component_cost = models.PositiveIntegerField(
         verbose_name="What is the cost")
@@ -122,8 +122,8 @@ class HospitalUserRole(DateTimeModel):
         ('accounts','Accounts'),
         ('accounts_admin','Accounts Admin')
     )
-    hospital_reference = models.ForeignKey(Hospital, related_name="hospital_user_role_hospital_id")
-    user_reference = models.ForeignKey(User, related_name="hospital_user_role_user_id")
+    hospital_reference = models.ForeignKey(Hospital, related_name="hospital_user_role_hospital_id",on_delete=models.CASCADE)
+    user_reference = models.ForeignKey(User, related_name="hospital_user_role_user_id",on_delete=models.CASCADE)
     role = models.CharField(max_length=20, choices=role_choices)
 
     def __str__(self):
@@ -133,7 +133,7 @@ class Invitations(DateTimeModel):
 
     invite_user_reference = models.ForeignKey(User, on_delete=models.CASCADE)
     hospital_invited_into = models.ForeignKey(
-        Hospital, related_name="hospital_invited_into")
+        Hospital, related_name="hospital_invited_into",on_delete=models.CASCADE)
     invited_by = models.ForeignKey(User,on_delete=models.CASCADE,related_name="invited_by")
     is_invitation_notified = models.BooleanField(default=False)
     is_user_logged_in = models.BooleanField(default=False)
