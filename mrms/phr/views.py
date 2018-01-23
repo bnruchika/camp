@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
+from django.core.urlresolvers import reverse
 
 from usermanagement.models import User
 from usermanagement.decorators import doctor_profile_validated, validate_user_role_permission
@@ -32,7 +33,8 @@ def find_patient(request):
         username = request.POST.get("mobile_number")
         try:
             patient = User.objects.get(username=username)
-            return render(request, "find_patient.html", {'patient': patient})
+            url = reverse('event_details',kwargs={"username":patient.username})
+            return HttpResponseRedirect(url)
         except ObjectDoesNotExist:
             return render(
                 request, "find_patient.html", {

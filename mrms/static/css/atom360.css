@@ -30,7 +30,6 @@
 body {
     font-size: 14px;
     font-family: "worksans";
-
 }
 .radio{
   display: inline;
@@ -110,6 +109,7 @@ strong{
 }
 label{
   margin: 0px;
+  font-size: 8px;
 }
 #diag-heading{
   color: #0caf24;
@@ -139,7 +139,9 @@ nav{
   padding-top: 30px;
   background-color: #f9f9f9;
 }
-
+.card-deck{
+  padding: 7px 0px 7px 0px;
+}
 .card{
  border-radius: 0px;
  padding: 15px;
@@ -152,7 +154,6 @@ nav{
 }
 .diag-card-right{
   padding: 20px 5px 20px 5px;
-  margin-top: 13px;
   background-color: #faf9f9;
 }
 

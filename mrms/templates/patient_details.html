@@ -2,6 +2,52 @@
 
 {% block content %}
 
+  <div class="card-deck row justify-content-center">
+    <div class="col-md-offset-1 col-lg-offset-1">
+        &nbsp;
+    </div>
+
+    <div class="col-lg-5">
+	<div class="card border-success">
+      <form method="POST" action="">
+          <div class="is-responsive">
+              <div class="form-group">
+                  <h3 class="text-center">Enter patient's Mobile Number</h3>
+                  <label class="sr-only" for="username">Username</label>
+                  <div class="input-group">
+     <input type="text" name="mobile_number" class="form-control" value="" id="username" placeholder="Mobile number">
+                  </div>
+              </div>
+              <div class="form-group form-control-md mx-sm-5">
+                  <button type="submit" class="btn btn-outline-success" style="margin-left:35%"> Find Patient </button>
+              </div>
+            </div>
+      </form>
+	</div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card border-success">
+        <div class="card-body">
+          <h3 class="card-title">Patient Found</h3>
+      <div class="row">
+          <div class="col-md-12 col-lg-12">
+              <table class="table">
+                  <tbody>
+                      <tr>
+                          <td id="patient_name"></td>
+                          <td id="patient_age"></td>
+                          <td id="patient_username"></td>
+                          <td><a id="view-link" href="">View Patient Details<span class="glyphicon glyphicon-user"></span></a></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
     {% if patient %}
         <ul class="nav nav-tabs justify-content-center flex-column flex-sm-row" id="Tab" role="tablist">
             <li class="nav-item">
@@ -11,26 +57,20 @@
                 <a class="nav-link" data-toggle="tab" href="#history" role="tab">Patient History</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#info" role="tab">Patient Information and Advise</a>
+                <a class="nav-link" data-toggle="tab" href="#history" role="tab">Billing</a>
             </li>
         </ul>
 
         <div class="tab-content">
-
             <div class="tab-pane active" id="patient-details" role="tabpanel">
-                {% include 'patient-details/includes/patient-basic-diagnosis.html'%}
+                {% include 'patient-details/includes/boot.html'%}
             </div>
             <!-- The first tab pane ends here -->
 
             <div class="tab-pane" id="history" role="tabpanel">
                 {% include 'patient-details/includes/patient-history.html'%}
             </div>
-
-            <div class="tab-pane" id="info" role="tabpanel">
-                {% include 'patient-details/includes/patient-extra-details.html'%}
-            </div>
-        </div>
-
+       </div>
     {% else %}
         No Patient Details found. You should use the find patient to find the patient
     {% endif %}
@@ -44,5 +84,5 @@
         var csrf_token = "{{csrf_token}}"
     </script>
     <script src="/static/js/patient_details.js"></script>
-
+    <link
 {% endblock script %}
