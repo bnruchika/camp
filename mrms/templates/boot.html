@@ -1,0 +1,220 @@
+{%load static%} {% include 'base.html'%} {% block content %}
+<!-- 1 -->
+  <div class="card-deck row justify-content-center">
+    <div class="col-md-offset-1 col-lg-offset-1">
+        &nbsp;
+    </div>
+
+    <div class="card col-lg-5 border-success">
+      <form method="POST" action="">
+          <div class="is-responsive animated fadeIn">
+              <div class="form-group">
+                  <h3 class="text-center">Enter patient's Mobile Number</h3>
+                  <label class="sr-only" for="username">Username</label>
+                  <div class="input-group">
+     <input type="text" name="mobile_number" class="form-control" value="" id="username" placeholder="Mobile number">
+                  </div>
+              </div>
+              <div class="form-group form-control-md mx-sm-5">
+                  <button type="submit" class="btn btn-outline-success" style="margin-left:35%"> Find Patient </button>
+              </div>
+            </div>
+      </form>
+    </div>
+
+    <div class="card col-lg-5 border-success">
+      <div class="card-find">
+        <div class="card-body">
+          <h3 class="card-title">Patient Found</h3>
+      <div class="row">
+          <div class="col-md-12 col-lg-12">
+              <table class="table">
+                  <tbody>
+                      <tr>
+                          <td id="patient_name"></td>
+                          <td id="patient_age"></td>
+                          <td id="patient_username"></td>
+                          <td><a id="view-link" href="">View Patient Details<span class="glyphicon glyphicon-user"></span></a></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <!-- 2 -->
+
+  <!-- 3 -->
+  <div class="row card-deck justify-content-center">
+    <div class="col-md-offset-1 col-lg-offset-1">
+        &nbsp;
+    </div>
+    <div class="col-lg-3">
+      <div class="card border-success">
+          <h4 class="card-header">Symptoms</h4>
+          <div class="card-body">
+              <input type="text" id="doctor_reported_symptoms" class="form-control" placeholder="Enter Symptoms here and hit enter">
+          </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card  border-success">
+          <h4 class="card-header">Disease Prediction</h4>
+          <div class="card-body">
+              <input type="text" id="patient_diseases" class="form-control" placeholder="Enter Diseases here and hit Enter">
+          </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card border-success">
+          <h4 class="card-header">Tests</h4>
+          <div class="card-body">
+              <input type="text" id="doctor_reported_tests" class="form-control" placeholder="Enter Test name and hit enter">
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- 4-->
+  <div class="row justify-content-center">
+    <div class="card col-md-10 col-lg-10">
+        <div class="border-success diag-card">
+            <h4 class="card-header">Medicines</h4>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" placeholder="Medicine Name" id="med_name">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <input type="text" class="form-control" placeholder="Dosage" id="med_dosage">
+                            </div>
+                            <div class="col-md-12 col-lg-12">
+                                <input type="text" class="form-control" placeholder="No of Days" id="days">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4">
+                        <div class="form">
+                            <span class="title-font">When </span>
+                            <div class="checkbox">
+                                <label>
+                                 <input type="checkbox" value="morning" id="morning"> Morning
+                               </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                 <input type="checkbox" value="afternoon" id="afternoon">Afternoon
+                               </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                 <input type="checkbox" value="night" id="night"> Night
+                               </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form">
+                            <span class="title-font">Food </span>
+                            <div class="checkbox">
+                                <label>
+                 <input type="radio" name="food" value="(A)"> After
+               </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                 <input type="radio" name="food" value="(B)"> Before
+               </label>
+                            </div>
+                            <div class="form">
+                                <div class="checkbox">
+                                    <label>
+                   <button type="submit" class="btn btn-sm btn-primary btn-block" id="add_medicine">Add</button>
+                 </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+  </div>
+  <!--  5-->
+ <div class="row card-deck justify-content-center">
+   <div class="col-md-offset-1 col-lg-offset-1">
+       &nbsp;
+   </div>
+      <div class="card col-lg-3 border-success">
+        <div class="diag-card">
+            <h4 class="card-header">Allergies</h4>
+            <div class="card-body">
+                <textarea id="patient_allergies" class="form-control"></textarea>
+            </div>
+        </div>
+      </div>
+      <div class="card col-lg-3 border-success">
+        <div class="diag-card">
+             <h4 class="card-header">Doctor's note </h4>(not visible to patients)
+             <div class="card-body">
+                 <textarea id="doctor_notes" class="form-control"></textarea>
+             </div>
+         </div>
+      </div>
+      <div class="card col-lg-3 border-success">
+        <div class="diag-card">
+            <h4 class="card-header">Clinical advice</h4>
+            <div class="card-body">
+                <textarea id="doctor_clinical_advice" class="form-control"></textarea>
+            </div>
+        </div>
+      </div>
+  </div>
+    <!-- 6 -->
+  <div class="row">
+    <div class="card col-lg-4 border-success">
+      <div id="left">
+          <form method="POST" action=".">
+                  <button type="submit" class="btn btn-outline-success">Add Cost</button>
+          </form>
+      </div>
+
+        <div class="card col-md-4 col-lg-4 border-success">
+          <h3 class="card-title">Costs Management</h3>
+            <div class="card-right mb-3">
+            <table width="100%" cellspacing="0" class="datatable display table">
+                <thead>
+                    <td> Billing Component </td>
+                    <td> Billing Type </td>
+                    <td> Cost </td>
+                    <td> </td>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td> </td>
+                        <td>
+                            <form method="POST" action=".">
+                               <input type="text" style="display:none" value="" name="cost_id" />
+                               <input type="text" style="display:none" value="delete" name="action" />
+                               <button class="btn btn-outline-danger ">Delete</button>
+                           </form>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}
